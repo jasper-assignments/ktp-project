@@ -1,7 +1,9 @@
 from flask import Flask, send_file, session, request, abort
+from flask_session import Session
 
 app = Flask(__name__)
-app.secret_key = "verysecretkey"
+app.config["SESSION_TYPE"] = "filesystem"
+Session(app)
 
 @app.get("/")
 def index():
