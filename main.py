@@ -17,10 +17,10 @@ def questions():
 
 @app.post("/questions/<question_id>")
 def answer(question_id):
-    if (not session.get("questions")):
+    if ("questions" not in session):
         # Hasn't triggered start before answering
         abort(400)
-    if (not question_id in session.get("questions")):
+    if (question_id not in session.get("questions")):
         # Bad question id
         abort(400)
     session["questions"][question_id]["answer"] = True
