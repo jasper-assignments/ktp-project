@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<knowledge>
+  <title>Scuba diving knowledge system</title>
+  <description>This knowledge base determines whether a person is fit for scuba diving based on age, health conditions, and training.</description>
