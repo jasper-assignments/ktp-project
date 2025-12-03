@@ -1,0 +1,47 @@
+import xml.etree.ElementTree as ET
+from xml.etree.ElementTree import Element
+from logic import Conjunction, Disjunction, Fact, Rule
+
+def parse_antecedent(antecedent: Element) -> Disjunction | Conjunction | Fact:
+  match antecedent.tag:
+    case "fact":
+      return Fact(
+        name=antecedent.attrib["name"],
+        value=antecedent.text
+      )
+    case "and":
+      return Conjunction([parse_antecedent(conjunct) for conjunct in antecedent])
+    case "or":
+      return Disjunction([parse_antecedent(disjunct) for disjunct in antecedent])
+    case _:
+      msg = f"Unknown antecedent type: {antecedent.tag}"
+      raise ValueError(msg)
+    
+def parse_consequent(consequent: Element) -> Fact:
+  if consequent.tag != "fact":
+    msg = f"Consequent must be a fact, got: {consequent.tag}"
+    raise ValueError(msg)
+  
+  return Fact(
+    name=consequent.attrib["name"],
+    value=consequent.text
+  )
+
+def parse_rule(rule: Element) -> Rule:
+  antecedent = parse_antecedent(rule.find("if")[0])
+  consequent = parse_consequent(rule.find("then").find("fact"))
+  return Rule(antecedent=antecedent, consequent=consequent)
+
+def parse_question(question: Element) -> Fact:
+  return question.attrib["name"], question.find("description").text
+
+def parse_kb() -> tuple[list[Rule], dict[str, str]]:
+  tree = ET.parse("kb.xml")
+  root = tree.getroot()
+  rules = [parse_rule(rule) for rule in root.find("rules")]
+  
+  questions = {
+    k: v for k, v in (parse_question(question) for question in root.find("questions"))
+  }
+  
+  return rules, questions
