@@ -1,6 +1,6 @@
 import xml.etree.ElementTree as ET
 from xml.etree.ElementTree import Element
-from logic import Conjunction, Disjunction, Fact, Rule
+from logic import Conjunction, Disjunction, Fact, Rule, Answer, Question
 
 def parse_antecedent(antecedent: Element) -> Disjunction | Conjunction | Fact:
   match antecedent.tag:
@@ -30,18 +30,24 @@ def parse_consequent(consequent: Element) -> Fact:
 def parse_rule(rule: Element) -> Rule:
   antecedent = parse_antecedent(rule.find("if")[0])
   consequent = parse_consequent(rule.find("then").find("fact"))
+  print(f"Parsed rule: if {antecedent} then {consequent}")
   return Rule(antecedent=antecedent, consequent=consequent)
 
-def parse_question(question: Element) -> Fact:
-  return question.attrib["name"], question.find("description").text
+def parse_question(question: Element) -> Question:
+  answers = list(map(
+    lambda a: Answer(value=a.attrib["value"], label=a.text),
+    question.find("answers").findall("answer")
+  ))
+  return Question(name=question.attrib["name"], description=question.find("description").text, answers=answers)
 
-def parse_kb() -> tuple[list[Rule], dict[str, str]]:
+def parse_kb() -> tuple[list[Rule], dict[str, Question]]:
   tree = ET.parse("kb.xml")
   root = tree.getroot()
+  # goal = Fact(name=root.find("goal").attrib["name"], value=root.find("goal").find("value").text)
   rules = [parse_rule(rule) for rule in root.find("rules")]
   
   questions = {
-    k: v for k, v in (parse_question(question) for question in root.find("questions"))
+    q.name: q for q in (parse_question(question) for question in root.find("questions"))
   }
   
   return rules, questions

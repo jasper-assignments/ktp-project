@@ -7,13 +7,24 @@ class Fact:
 
 @dataclass
 class Conjunction:
-  facts: list[Fact]
+  conjuncts: list[Fact]
 
 @dataclass
 class Disjunction:
-  conjunctions: list[Conjunction]
+  disjuncts: list[Fact | Conjunction]
 
 @dataclass
 class Rule:
   antecedent: Disjunction | Conjunction | Fact
   consequent: Fact
+
+@dataclass
+class Answer:
+  value: str
+  label: str
+
+@dataclass
+class Question:
+  name: str
+  description: str
+  answers: list[Answer]

@@ -1,4 +1,63 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <knowledge>
   <title>Scuba diving knowledge system</title>
-  <description>This knowledge base determines whether a person is fit for scuba diving based on age, health conditions, and training.</description>
+  <description>This knowledge base determines whether a diver can go into the water safely.</description>
+
+  <goal name="can_dive">
+    <description>Can the diver go into the water safely?</description>
+    <answer value="yes"><![CDATA[The diver <em>can</em> go into the water safely.]]></answer>
+    <answer value="no">The diver cannot go into the water safely.</answer>
+  </goal>
+
+  <rules>
+    <rule>
+      <if>
+        <or>
+          <and>
+            <fact name="tankFull">no</fact>
+            <fact name="pressure">low</fact>
+          </and>
+          <and>
+            <fact name="temperature">cold</fact>
+            <fact name="visibility">poor</fact>
+          </and>
+        </or>
+      </if>
+      <then>
+        <fact name="can_dive">no</fact>
+      </then>
+    </rule>
+  </rules>
+
+  <questions>
+    <question name="tankFull">
+      <description>Is the air tank full?</description>
+      <answers>
+        <answer value="yes">Yes</answer>
+        <answer value="no">No</answer>
+      </answers>
+    </question>
+    <question name="pressure">
+      <description>Is the pressure in the tank adequate?</description>
+      <answers>
+        <answer value="high">High</answer>
+        <answer value="low">Low</answer>
+      </answers>
+    </question>
+    <question name="temperature">
+      <description>What is the water temperature?</description>
+      <answers>
+        <answer value="warm">Warm</answer>
+        <answer value="cold">Cold</answer>
+      </answers>
+    </question>
+    <question name="visibility">
+      <description>What is the water visibility?</description>
+      <answers>
+        <answer value="good">Good</answer>
+        <answer value="poor">Poor</answer>
+      </answers>
+    </question>
+  </questions>
+
+</knowledge>
