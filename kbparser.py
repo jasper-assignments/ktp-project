@@ -21,7 +21,6 @@ def parse_consequent(consequent: Element) -> Fact:
   if consequent.tag != "fact":
     msg = f"Consequent must be a fact, got: {consequent.tag}"
     raise ValueError(msg)
-  
   return Fact(
     name=consequent.attrib["name"],
     value=consequent.text
@@ -30,7 +29,6 @@ def parse_consequent(consequent: Element) -> Fact:
 def parse_rule(rule: Element) -> Rule:
   antecedent = parse_antecedent(rule.find("if")[0])
   consequent = parse_consequent(rule.find("then").find("fact"))
-  print(f"Parsed rule: if {antecedent} then {consequent}")
   return Rule(antecedent=antecedent, consequent=consequent)
 
 def parse_question(question: Element) -> Question:

@@ -38,7 +38,7 @@
       </answers>
     </question>
     <question name="pressure">
-      <description>Is the pressure in the tank adequate?</description>
+      <description>How is the pressure in the tank?</description>
       <answers>
         <answer value="high">High</answer>
         <answer value="low">Low</answer>
