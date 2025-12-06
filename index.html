@@ -1,13 +1,122 @@
 <!DOCTYPE html>
-<html>
+<html data-theme="light">
     <head>
         <meta charset="utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <title>KTP Project</title>
+        <title>Divemaster</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+        <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
+        <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     </head>
-    <body>
-        <h1>KTP Project</h1>
-        <p>Hello, world!</p>
+    <body class="p-8 flex flex-col gap-4" x-data="body">
+        <h1 class="text-2xl font-bold">Divemaster</h1>
+        <p x-show="!started" x-transition>
+            Welcome to Divemaster. Answer some questions and the Divemaster will let you know if you can safely enter
+            the water! Press the button to begin.
+        </p>
+        <button class="btn btn-outline btn-block btn-primary" @click="start()" x-show="!started">
+            Call upon the Divemaster
+        </button>
+
+        <div class="flex flex-col gap-2" x-show="started">
+            <template x-for="msg in messages">
+                <div
+                    class="flex flex-col gap-2"
+                    x-data="{ show: false }"
+                    x-init="$nextTick(() => { show = true })"
+                    x-show="show"
+                    x-transition
+                >
+                    <div class="chat chat-start">
+                        <div
+                            class="chat-bubble"
+                            :class="msg.result != null ? msg.result ? 'chat-bubble-error' : 'chat-bubble-success' : ''"
+                        >
+                            <span x-text="msg.description"></span>
+                        </div>
+                    </div>
+                    <template x-if="msg.answers">
+                        <div>
+                            <div x-show="!msg.answer" class="flex gap-2">
+                                <template x-for="a in msg.answers">
+                                    <button
+                                        class="btn btn-outline btn-primary"
+                                        x-text="a.label"
+                                        @click="answer(msg, a)"
+                                    ></button>
+                                </template>
+                            </div>
+                            <div class="chat chat-end" x-show="msg.answer" x-transition>
+                                <div class="chat-bubble chat-bubble-primary" x-text="msg.answer.label"></div>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+            </template>
+            <button class="btn" @click="restart()" x-show="finished" x-transition>
+                Call upon the Divemaster once more
+            </button>
+            <p class="skeleton skeleton-text" x-show="loading" x-transition>The Divemaster is thinking...</p>
+        </div>
+
+        <script>
+            function sleep(ms) {
+                return new Promise((resolve) => setTimeout(resolve, ms));
+            }
+
+            document.addEventListener("alpine:init", () => {
+                Alpine.data("body", () => ({
+                    messages: [],
+                    loading: false,
+                    started: false,
+                    finished: false,
+
+                    async start() {
+                        this.started = true;
+                        this.loading = true;
+                        this.messages.push({
+                            name: "intro",
+                            description:
+                                "Welcome diver, I am the mighty Divemaster. Answer my questions and I shall guide you",
+                        });
+                        await sleep(1000);
+                        const response = await axios.post("/start");
+                        this.loading = false;
+                        this.messages.push(response.data.question);
+                    },
+
+                    async answer(question, answer) {
+                        question.answer = answer;
+                        await sleep(250);
+                        this.loading = true;
+                        await sleep(1000);
+                        const response = await axios.post("/answer", {
+                            question: question.name,
+                            answer: question.answer,
+                        });
+                        this.loading = false;
+                        if (response.data.question) {
+                            this.messages.push(response.data.question);
+                            return;
+                        }
+                        this.messages.push({
+                            name: "result",
+                            result: response.data.result,
+                            description: response.data.description,
+                        });
+                        await sleep(500);
+                        this.finished = true;
+                    },
+
+                    async restart() {
+                        this.finished = false;
+                        await sleep(500);
+                        this.start();
+                    },
+                }));
+            });
+        </script>
     </body>
 </html>

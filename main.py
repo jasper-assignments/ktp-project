@@ -20,7 +20,7 @@ def step(rules: list[Rule], domain: Domain, questions: dict[str, Question], goal
     except StopIteration as result:
         return {
             "result": result.value,
-            "message": result.value
+            "description": result.value
                 and "The diver cannot go into the water safely."
                 or "The diver can go into the water safely.",
         }
