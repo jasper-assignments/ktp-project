@@ -39,18 +39,28 @@
                     </div>
                     <template x-if="msg.answers">
                         <div>
-                            <div x-show="!msg.answer" class="flex gap-2">
-                                <template x-for="a in msg.answers">
-                                    <button
-                                        class="btn btn-outline btn-primary"
-                                        x-text="a.label"
-                                        @click="answer(msg, a)"
-                                    ></button>
-                                </template>
-                            </div>
-                            <div class="chat chat-end" x-show="msg.answer" x-transition>
-                                <div class="chat-bubble chat-bubble-primary" x-text="msg.answer.label"></div>
-                            </div>
+                            <template x-if="!msg.answer">
+                                <div class="flex gap-2">
+                                    <template x-for="a in msg.answers">
+                                        <button
+                                            class="btn btn-outline btn-primary"
+                                            x-text="a.label"
+                                            @click="answer(msg, a)"
+                                        ></button>
+                                    </template>
+                                </div>
+                            </template>
+                            <template x-if="msg.answer">
+                                <div
+                                    class="chat chat-end"
+                                    x-data="{ show: false }"
+                                    x-init="$nextTick(() => { show = true })"
+                                    x-show="show"
+                                    x-transition
+                                >
+                                    <div class="chat-bubble chat-bubble-primary" x-text="msg.answer.label"></div>
+                                </div>
+                            </template>
                         </div>
                     </template>
                 </div>
