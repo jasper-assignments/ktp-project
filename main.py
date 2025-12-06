@@ -2,7 +2,7 @@ from flask import Flask, send_file, session, request, abort
 from flask_session import Session
 from kbparser import parse_kb
 from domain import Domain
-from logic import Fact
+from logic import Fact, Question,Rule
 from backward import backward
 
 app = Flask(__name__)
@@ -10,35 +10,34 @@ app.config["SESSION_TYPE"] = "filesystem"
 Session(app)
 
 rules, questions = parse_kb()
-# print(f"Original parsed goal: {goal}")
+goal = Fact("can_dive", "no")
 
-def test_backward() -> None:
-    domain = Domain()
-    goal = Fact(name="can_dive", value="no")
-    result = backward(rules, domain, questions, goal)
-    print(f"goal: {goal.name}={goal.value}, result: {result}")
-
-test_backward()
+def step(rules: list[Rule], domain: Domain, questions: dict[str, Question], goal: Fact):
+    engine = backward(rules, domain, questions, goal)
+    try:
+        question: Question = next(engine)
+        return {"question": question}
+    except StopIteration as result:
+        return {
+            "result": result.value,
+            "message": result.value
+                and "The diver cannot go into the water safely."
+                or "The diver can go into the water safely.",
+        }
 
 @app.get("/")
 def index():
     return send_file("index.html")
 
-@app.get("/questions")
-def questions():
-    if ("questions" not in session):
-        session["questions"] = {
-            "example": {"question": "Is this an example question?", "answer": None}
-        }
-    return session.get("questions")
+@app.post("/start")
+def start():
+    domain = Domain()
+    session["domain"] = domain
+    return step(rules, domain, questions, goal)
 
-@app.post("/questions/<question_id>")
-def answer(question_id):
-    if ("questions" not in session):
-        # Hasn't triggered start before answering
-        abort(400)
-    if (question_id not in session.get("questions")):
-        # Bad question id
-        abort(400)
-    session["questions"][question_id]["answer"] = True
-    return session.get("questions")
+@app.post("/answer")
+def answer():
+    domain = session["domain"]
+    setattr(domain, request.json["question"], request.json["answer"])
+    session["domain"] = domain
+    return step(rules, domain, questions, goal)
