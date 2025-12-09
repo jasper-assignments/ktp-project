@@ -66,8 +66,42 @@
                 </div>
             </template>
             <div class="flex gap-2" x-show="finished" x-transition>
-                <button class="btn" @click="goBackOne()">Continue from last question</button>
-                <button class="btn" @click="restart()">Call upon the Divemaster once more</button>
+                <button class="btn" @click="goBackOne()">
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        class="lucide lucide-undo2-icon lucide-undo-2 size-[1.2em]"
+                    >
+                        <path d="M9 14 4 9l5-5" />
+                        <path d="M4 9h10.5a5.5 5.5 0 0 1 5.5 5.5a5.5 5.5 0 0 1-5.5 5.5H11" />
+                    </svg>
+                    Continue from last question
+                </button>
+                <button class="btn" @click="restart()">
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        class="lucide lucide-rotate-ccw-icon lucide-rotate-ccw size-[1.2em]"
+                    >
+                        <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
+                        <path d="M3 3v5h5" />
+                    </svg>
+                    Call upon the Divemaster once more
+                </button>
             </div>
             <p class="skeleton skeleton-text" x-show="loading" x-transition>The Divemaster is thinking...</p>
         </div>
