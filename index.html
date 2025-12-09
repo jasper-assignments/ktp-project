@@ -142,7 +142,7 @@
                         await sleep(1000);
                         const response = await axios.post("/answer", {
                             question: question.name,
-                            answer: question.answer,
+                            answer: answer.value,
                         });
                         this.loading = false;
                         if (response.data.question) {
