@@ -10,17 +10,21 @@
         <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
         <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     </head>
-    <body class="p-8 flex flex-col gap-4 h-full" x-data="body">
-        <h1 class="text-2xl font-bold">Divemaster</h1>
-        <p x-show="!started" x-transition>
-            Welcome to Divemaster. Answer some questions and the Divemaster will let you know if you can safely enter
-            the water! Press the button to begin.
-        </p>
-        <button class="btn btn-outline btn-block btn-primary" @click="start()" x-show="!started">
-            Call upon the Divemaster
-        </button>
+    <body class="pt-4 flex flex-col gap-4 h-full" x-data="body">
+        <h1 class="text-2xl font-bold px-4 lg:px-8">Divemaster</h1>
+        <div class="flex flex-col gap-4 pb-4 px-4 lg:px-8" x-show="!started" x-transition>
+            <p>
+                Welcome to Divemaster. Answer some questions and the Divemaster will let you know if you can safely
+                enter the water! Press the button to begin.
+            </p>
+            <button class="btn btn-outline btn-block btn-primary" @click="start()">Call upon the Divemaster</button>
+        </div>
 
-        <div id="chat" class="flex flex-col gap-2 flex-[1 1 100%] overflow-auto h-full" x-show="started">
+        <div
+            id="chat"
+            class="flex flex-col gap-2 flex-[1 1 100%] overflow-auto h-full pb-4 px-4 lg:px-8"
+            x-show="started"
+        >
             <template x-for="msg in messages">
                 <div
                     class="flex flex-col gap-2"
