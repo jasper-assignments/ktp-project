@@ -13,51 +13,278 @@
     <rule>
       <if>
         <or>
-          <and>
-            <fact name="tankFull">no</fact>
-            <fact name="pressure">low</fact>
-          </and>
-          <and>
-            <fact name="temperature">cold</fact>
-            <fact name="visibility">poor</fact>
-          </and>
+          <fact name="fever">yes</fact>
+          <fact name="sinusProblems">yes</fact>
+          <fact name="earPain">yes</fact>
         </or>
       </if>
       <then>
         <fact name="can_dive">no</fact>
+        <fact name="reason">You are not in good health</fact>
+      </then>
+    </rule>
+    <rule>
+      <if>
+        <not>
+          <fact name="bloodPressure">normal</fact>
+        </not>
+      </if>
+      <then>
+        <fact name="can_dive">no</fact>
+        <fact name="reason">Your blood pressure is not normal</fact>
+      </then>
+    </rule>
+    <rule>
+      <if>
+        <or>
+          <fact name="tired">yes</fact>
+          <fact name="hydrated">no</fact>
+          <not>
+            <fact name="satiety">satisfied</fact>
+          </not>
+          <fact name="hungover">yes</fact>
+        </or>
+      </if>
+      <then>
+        <fact name="can_dive">no</fact>
+        <fact name="reason">You don't have high energy</fact>
+      </then>
+    </rule>
+    <rule>
+      <if>
+        <fact name="underInfluence">yes</fact>
+      </if>
+      <then>
+        <fact name="can_dive">no</fact>
+        <fact name="reason">You are under the influence of drugs or alcohol</fact>
       </then>
     </rule>
   </rules>
 
   <questions>
-    <question name="tankFull">
-      <description>Is the air tank full?</description>
+    <!-- Diver -->
+    <!-- Health -->
+    <question name="fever">
+      <description>Do you currently have a fever?</description>
       <answers>
         <answer value="yes">Yes</answer>
         <answer value="no">No</answer>
       </answers>
     </question>
-    <question name="pressure">
-      <description>How is the pressure in the tank?</description>
+    <question name="sinusProblems">
+      <description>Are you experiencing sinus problems?</description>
       <answers>
-        <answer value="high">High</answer>
-        <answer value="low">Low</answer>
+        <answer value="yes">Yes</answer>
+        <answer value="no">No</answer>
       </answers>
     </question>
-    <question name="temperature">
-      <description>What is the water temperature?</description>
+    <question name="earPain">
+      <description>Are you currently experiencing pain in your ear?</description>
       <answers>
-        <answer value="warm">Warm</answer>
-        <answer value="cold">Cold</answer>
+        <answer value="yes">Yes</answer>
+        <answer value="no">No</answer>
       </answers>
     </question>
-    <question name="visibility">
-      <description>What is the water visibility?</description>
+    <!-- Blood pressure -->
+     <question name="bloodPressure">
+      <description>What is your current blood pressure?</description>
       <answers>
-        <answer value="good">Good</answer>
-        <answer value="poor">Poor</answer>
+        <!-- TODO: define proper ranges here for the answers -->
+        <answer value="low">25/10</answer>
+        <answer value="normal">in a range near 125/75</answer>
+        <answer value="high">180/90</answer>
+      </answers>
+    </question>
+    <!-- Energy -->
+    <question name="tired">
+      <description>Are you feeling tired?</description>
+      <answers>
+        <answer value="yes">Yes</answer>
+        <answer value="no">No</answer>
+      </answers>
+    </question>
+    <question name="hydrated">
+      <description>Have you had enough to drink?</description>
+      <answers>
+        <answer value="yes">Yes</answer>
+        <answer value="no">No</answer>
+      </answers>
+    </question>
+    <question name="satiety">
+      <description>How much have you eaten?</description>
+      <answers>
+        <answer value="hungry">I'm hungry</answer>
+        <answer value="satisfied">I'm satisfied</answer>
+        <answer value="overfull">I feel stuffed, ate too much</answer>
+      </answers>
+    </question>
+    <question name="hungover">
+      <description>Are you currently hungover?</description>
+      <answers>
+        <answer value="yes">Yes</answer>
+        <answer value="no">No</answer>
+      </answers>
+    </question>
+    <!-- Influence -->
+    <question name="underInfluence">
+      <description>Are you currently under the unfluence of drugs or alcohol?</description>
+      <answers>
+        <answer value="yes">Yes</answer>
+        <answer value="no">No</answer>
+      </answers>
+    </question>
+
+    <!-- Gear -->
+    <!-- Mask -->
+    <question name="maskFits">
+      <description>Does your mask fit properly and is it fully sealed?</description>
+      <answers>
+        <answer value="yes">Yes</answer>
+        <answer value="no">No</answer>
+      </answers>
+    </question>
+    <question name="canHoldNose">
+      <description>Are you able to hold your nose to regulate pressure?</description>
+      <answers>
+        <answer value="yes">Yes</answer>
+        <answer value="no">No</answer>
+      </answers>
+    </question>
+    <!-- Fins and boots size -->
+    <question name="finBootSizeCorrect">
+      <description>Do your fins and boots fit you correctly?</description>
+      <answers>
+        <answer value="yes">Yes</answer>
+        <answer value="no">No</answer>
+      </answers>
+    </question>
+    <!-- Suit -->
+    <question name="suitType">
+      <description>What kind of suit are you wearing?</description>
+      <answers>
+        <answer value="dry">Wetsuit</answer>
+        <answer value="wet">Drysuit</answer>
+      </answers>
+    </question>
+    <question name="isDrysuitZipped">
+      <description>Is your drysuit fully zipped up?</description>
+      <answers>
+        <answer value="yes">Yes</answer>
+        <answer value="no">No</answer>
+      </answers>
+    </question>
+    <question name="hasDrysuitHoles">
+      <description>Are there any holes in your drysuit?</description>
+      <answers>
+        <answer value="yes">Yes</answer>
+        <answer value="no">No</answer>
+      </answers>
+    </question>
+    <question name="wetsuitFits">
+      <description>Does your wetsuit fit you correctly?</description>
+      <answers>
+        <answer value="yes">Yes</answer>
+        <answer value="no">No</answer>
+      </answers>
+    </question>
+    <!-- Buoyancy control device -->
+    <question name="bcdWorksCorrectly">
+      <description>Does your BCD (buoyancy control device) inflate and deflate correctly?</description>
+      <answers>
+        <answer value="bothBroken">Inflating and deflating don't work correctly</answer>
+        <answer value="inflatingBroken">Inflating doesn't work correctly</answer>
+        <answer value="deflatingBroken">Deflating doesn't work correctly</answer>
+        <answer value="bothWork">Inflating and deflating both work correctly</answer>
+      </answers>
+    </question>
+    <!-- Regulator -->
+    <question name="primaryRegulatorWorks">
+      <description>Does your primary regulator work?</description>
+      <answers>
+        <answer value="yes">Yes</answer>
+        <answer value="no">No</answer>
+      </answers>
+    </question>
+    <question name="octopusWorks">
+      <description>Does your octopus work?</description>
+      <answers>
+        <answer value="yes">Yes</answer>
+        <answer value="no">No</answer>
+      </answers>
+    </question>
+    <!-- Tank -->
+    <question name="tankPressure">
+      <description>What is the current pressure of your air tank?</description>
+      <answers>
+        <answer value="enough">200 bar or more</answer>
+        <answer value="less">less than 200 bar</answer>
+      </answers>
+    </question>
+    <question name="divingDepth">
+      <description>How deep do you intend to dive?</description>
+      <answers>
+        <answer value="upTo40">up to 40 metres</answer>
+        <answer value="deeperThan40">deeper than 40 metres</answer>
+      </answers>
+    </question>
+    <question name="tankContent">
+      <description>What do you have in your air tank?</description>
+      <answers>
+        <answer value="air">Air</answer>
+        <answer value="gasMix">Gas mix</answer>
+      </answers>
+    </question>
+    <!-- Weights -->
+    <!-- TODO: put in the other parameters like wet suit -> less weight, salty water more weight than non salty water, and what for a drysuit then?-->
+    <question name="bodyWeight">
+      <description>What is your body weight?</description>
+      <answers>
+        <answer value="lessThan80">Under 80 kilograms</answer>
+        <answer value="atLeast80">80 kilograms or more</answer>
+      </answers>
+    </question>
+    <question name="weights">
+      <description>How much weights have you taken?</description>
+      <answers>
+        <answer value="8">8 kilograms in weights</answer>
+        <answer value="10-12">10-12 kilograms in weights</answer>
+      </answers>
+    </question>
+    <!-- Dive computer -->
+    <question name="maxDivingTime">
+      <description>How long will you dive for at most?</description>
+      <answers>
+        <answer value="20">At most 20 minutes</answer>
+        <answer value="30">At most 30 minutes</answer>
+        <answer value="45">At most 45 minutes</answer>
+        <answer value="60">At most 1 hour</answer>
+      </answers>
+    </question>
+    <question name="computerCharge">
+      <description>What is the charge level of your dive computer?</description>
+      <answers>
+        <answer value="0">Less than 50%</answer>
+        <answer value="50">At least 50%</answer>
+        <answer value="70">At least 70%</answer>
+        <answer value="85">At least 85%</answer>
+        <answer value="100">At least 100%</answer>
+      </answers>
+    </question>
+    <!-- SPG pressure gauge -->
+    <question name="spgPressureGaugeWorking">
+      <description>Is your SPG pressurue gauge working (showing 200 bars)?</description>
+      <answers>
+        <answer value="yes">Yes</answer>
+        <answer value="no">No</answer>
+      </answers>
+    </question>
+    <!-- Surface marker buoy -->
+    <question name="surfaceMarkerBuoyAvailable">
+      <description>Is a surface marker buoy available?</description>
+      <answers>
+        <answer value="yes">Yes</answer>
+        <answer value="no">No</answer>
       </answers>
     </question>
   </questions>
-
 </knowledge>
