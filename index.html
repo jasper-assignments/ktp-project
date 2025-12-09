@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html data-theme="light">
+<html data-theme="light" class="h-full">
     <head>
         <meta charset="utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -10,7 +10,7 @@
         <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
         <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     </head>
-    <body class="p-8 flex flex-col gap-4" x-data="body">
+    <body class="p-8 flex flex-col gap-4 h-full" x-data="body">
         <h1 class="text-2xl font-bold">Divemaster</h1>
         <p x-show="!started" x-transition>
             Welcome to Divemaster. Answer some questions and the Divemaster will let you know if you can safely enter
@@ -20,7 +20,7 @@
             Call upon the Divemaster
         </button>
 
-        <div class="flex flex-col gap-2" x-show="started">
+        <div id="chat" class="flex flex-col gap-2 flex-[1 1 100%] overflow-auto h-full" x-show="started">
             <template x-for="msg in messages">
                 <div
                     class="flex flex-col gap-2"
@@ -40,7 +40,7 @@
                     <template x-if="msg.answers">
                         <div>
                             <template x-if="!msg.answer">
-                                <div class="flex gap-2">
+                                <div class="flex flex-wrap gap-2">
                                     <template x-for="a in msg.answers">
                                         <button
                                             class="btn btn-outline btn-primary"
@@ -119,11 +119,26 @@
                     finished: false,
                     lastQuestion: undefined,
 
+                    scrollChat() {
+                        this.$nextTick(() => {
+                            requestAnimationFrame(() => {
+                                requestAnimationFrame(() => {
+                                    const chatElement = document.getElementById("chat");
+                                    chatElement.scrollTo({
+                                        top: chatElement.scrollHeight,
+                                        behavior: "smooth",
+                                    });
+                                });
+                            });
+                        });
+                    },
+
                     async handleResponse(response) {
                         this.loading = false;
                         if (response.data.question) {
                             this.messages.push(response.data.question);
                             this.lastQuestion = response.data.question;
+                            this.scrollChat();
                             return;
                         }
                         this.messages.push({
@@ -131,12 +146,13 @@
                             result: response.data.result,
                             description: response.data.description,
                         });
-                        await sleep(500);
                         this.finished = true;
+                        this.scrollChat();
                     },
 
                     async start() {
                         this.started = true;
+                        await sleep(250);
                         this.loading = true;
                         this.lastQuestion = undefined;
                         this.messages.push({
@@ -144,6 +160,7 @@
                             description:
                                 "Welcome diver, I am the mighty Divemaster. Answer my questions and I shall guide you",
                         });
+                        this.scrollChat();
                         await sleep(1000);
                         const response = await axios.post("/start");
                         this.handleResponse(response);
@@ -151,8 +168,10 @@
 
                     async answer(question, answer) {
                         question.answer = answer;
+                        this.scrollChat();
                         await sleep(250);
                         this.loading = true;
+                        this.scrollChat();
                         await sleep(1000);
                         const response = await axios.post("/answer", {
                             question: question.name,
@@ -165,6 +184,7 @@
                         this.finished = false;
                         await sleep(250);
                         this.loading = true;
+                        this.scrollChat();
                         await sleep(1000);
                         const response = await axios.post("/undo", {
                             question: this.lastQuestion.name,
@@ -174,7 +194,6 @@
 
                     async restart() {
                         this.finished = false;
-                        await sleep(500);
                         this.start();
                     },
                 }));
