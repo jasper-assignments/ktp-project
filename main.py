@@ -1,7 +1,6 @@
 from flask import Flask, send_file, session, request, abort
 from flask_session import Session
 from kbparser import parse_kb
-from domain import Domain
 from logic import Fact, Question,Rule
 from backward import backward
 
@@ -12,7 +11,7 @@ Session(app)
 rules, questions = parse_kb()
 goal = Fact("can_dive", "no")
 
-def step(rules: list[Rule], domain: Domain, questions: dict[str, Question], goal: Fact):
+def step(rules: list[Rule], domain: dict, questions: dict[str, Question], goal: Fact):
     engine = backward(rules, domain, questions, goal)
     try:
         question: Question = next(engine)
@@ -31,21 +30,21 @@ def index():
 
 @app.post("/start")
 def start():
-    domain = Domain()
+    domain = {}
     session["domain"] = domain
     return step(rules, domain, questions, goal)
 
 @app.post("/answer")
 def answer():
     domain = session["domain"]
-    setattr(domain, request.json["question"], request.json["answer"])
+    domain[request.json["question"]] = request.json["answer"]
     session["domain"] = domain
     return step(rules, domain, questions, goal)
 
 @app.post("/undo")
 def undo():
     domain = session["domain"]
-    setattr(domain, request.json["question"], None)
-    setattr(domain, goal.name, None)
+    domain[request.json["question"]] = None
+    domain[goal.name] = None
     session["domain"] = domain
     return step(rules, domain, questions, goal)
