@@ -66,7 +66,7 @@
                 </div>
             </template>
             <div class="flex gap-2" x-show="finished" x-transition>
-                <button class="btn" @click="goBackOne()">
+                <button class="btn" @click="undo()">
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="24"
@@ -119,31 +119,7 @@
                     finished: false,
                     lastQuestion: undefined,
 
-                    async start() {
-                        this.started = true;
-                        this.loading = true;
-                        this.lastQuestion = undefined;
-                        this.messages.push({
-                            name: "intro",
-                            description:
-                                "Welcome diver, I am the mighty Divemaster. Answer my questions and I shall guide you",
-                        });
-                        await sleep(1000);
-                        const response = await axios.post("/start");
-                        this.loading = false;
-                        this.messages.push(response.data.question);
-                        this.lastQuestion = response.data.question;
-                    },
-
-                    async answer(question, answer) {
-                        question.answer = answer;
-                        await sleep(250);
-                        this.loading = true;
-                        await sleep(1000);
-                        const response = await axios.post("/answer", {
-                            question: question.name,
-                            answer: answer.value,
-                        });
+                    async handleResponse(response) {
                         this.loading = false;
                         if (response.data.question) {
                             this.messages.push(response.data.question);
@@ -159,10 +135,41 @@
                         this.finished = true;
                     },
 
-                    async goBackOne() {
+                    async start() {
+                        this.started = true;
+                        this.loading = true;
+                        this.lastQuestion = undefined;
+                        this.messages.push({
+                            name: "intro",
+                            description:
+                                "Welcome diver, I am the mighty Divemaster. Answer my questions and I shall guide you",
+                        });
+                        await sleep(1000);
+                        const response = await axios.post("/start");
+                        this.handleResponse(response);
+                    },
+
+                    async answer(question, answer) {
+                        question.answer = answer;
+                        await sleep(250);
+                        this.loading = true;
+                        await sleep(1000);
+                        const response = await axios.post("/answer", {
+                            question: question.name,
+                            answer: answer.value,
+                        });
+                        this.handleResponse(response);
+                    },
+
+                    async undo() {
                         this.finished = false;
-                        await sleep(500);
-                        this.answer({ ...this.lastQuestion }, null);
+                        await sleep(250);
+                        this.loading = true;
+                        await sleep(1000);
+                        const response = await axios.post("/undo", {
+                            question: this.lastQuestion.name,
+                        });
+                        this.handleResponse(response);
                     },
 
                     async restart() {

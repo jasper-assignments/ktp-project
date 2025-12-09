@@ -41,3 +41,11 @@ def answer():
     setattr(domain, request.json["question"], request.json["answer"])
     session["domain"] = domain
     return step(rules, domain, questions, goal)
+
+@app.post("/undo")
+def undo():
+    domain = session["domain"]
+    setattr(domain, request.json["question"], None)
+    setattr(domain, goal.name, None)
+    session["domain"] = domain
+    return step(rules, domain, questions, goal)
