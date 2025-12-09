@@ -24,6 +24,28 @@ def step(rules: list[Rule], domain: dict, questions: dict[str, Question], goal: 
                 or "The diver can go into the water safely.",
         }
 
+def ask_user(question: Question) -> str:
+  options = [f"{i}: {a.label}" for i, a in enumerate(question.answers)]
+  return question.answers[int(input(f"{question.description} ({", ".join(options)}) > "))].value
+
+def test_backward() -> None:
+    domain = {}
+    goal = Fact(name="can_dive", value="no")
+    result = None
+    while True:
+        result = step(rules, domain, questions, goal)
+        if ("result" in result):
+            break
+        if ("question" in result):
+            question = result["question"]
+            answer = ask_user(question)
+            domain[question.name] = answer
+    print(f"goal: {goal.name}={goal.value}, result: {result["result"]}")
+    print(result)
+
+if __name__ == "__main__":
+    test_backward()
+
 @app.get("/")
 def index():
     return send_file("index.html")
