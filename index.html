@@ -65,9 +65,10 @@
                     </template>
                 </div>
             </template>
-            <button class="btn" @click="restart()" x-show="finished" x-transition>
-                Call upon the Divemaster once more
-            </button>
+            <div class="flex gap-2" x-show="finished" x-transition>
+                <button class="btn" @click="goBackOne()">Continue from last question</button>
+                <button class="btn" @click="restart()">Call upon the Divemaster once more</button>
+            </div>
             <p class="skeleton skeleton-text" x-show="loading" x-transition>The Divemaster is thinking...</p>
         </div>
 
@@ -82,10 +83,12 @@
                     loading: false,
                     started: false,
                     finished: false,
+                    lastQuestion: undefined,
 
                     async start() {
                         this.started = true;
                         this.loading = true;
+                        this.lastQuestion = undefined;
                         this.messages.push({
                             name: "intro",
                             description:
@@ -95,6 +98,7 @@
                         const response = await axios.post("/start");
                         this.loading = false;
                         this.messages.push(response.data.question);
+                        this.lastQuestion = response.data.question;
                     },
 
                     async answer(question, answer) {
@@ -109,6 +113,7 @@
                         this.loading = false;
                         if (response.data.question) {
                             this.messages.push(response.data.question);
+                            this.lastQuestion = response.data.question;
                             return;
                         }
                         this.messages.push({
@@ -118,6 +123,12 @@
                         });
                         await sleep(500);
                         this.finished = true;
+                    },
+
+                    async goBackOne() {
+                        this.finished = false;
+                        await sleep(500);
+                        this.answer({ ...this.lastQuestion }, null);
                     },
 
                     async restart() {
