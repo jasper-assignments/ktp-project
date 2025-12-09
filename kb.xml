@@ -10,6 +10,7 @@
   </goal>
 
   <rules>
+    <!-- Diver -->
     <rule>
       <if>
         <or>
@@ -20,7 +21,7 @@
       </if>
       <then>
         <fact name="can_dive">no</fact>
-        <fact name="reason">You are not in good health</fact>
+        <fact name="reason">You are not in good health.</fact>
       </then>
     </rule>
     <rule>
@@ -31,7 +32,7 @@
       </if>
       <then>
         <fact name="can_dive">no</fact>
-        <fact name="reason">Your blood pressure is not normal</fact>
+        <fact name="reason">Your blood pressure is not normal.</fact>
       </then>
     </rule>
     <rule>
@@ -47,7 +48,7 @@
       </if>
       <then>
         <fact name="can_dive">no</fact>
-        <fact name="reason">You don't have high energy</fact>
+        <fact name="reason">You don't have high energy.</fact>
       </then>
     </rule>
     <rule>
@@ -56,7 +57,216 @@
       </if>
       <then>
         <fact name="can_dive">no</fact>
-        <fact name="reason">You are under the influence of drugs or alcohol</fact>
+        <fact name="reason">You are under the influence of drugs or alcohol.</fact>
+      </then>
+    </rule>
+
+    <!-- Gear -->
+    <rule>
+      <if>
+        <fact name="maskFits">no</fact>
+      </if>
+      <then>
+        <fact name="can_dive">no</fact>
+        <fact name="reason">You need a proper fitting mask that seals well.</fact>
+      </then>
+    </rule>
+    <rule>
+      <if>
+        <fact name="canHoldNose">no</fact>
+      </if>
+      <then>
+        <fact name="can_dive">no</fact>
+        <fact name="reason">You need a to be able to hold your nose.</fact>
+      </then>
+    </rule>
+    <rule>
+      <if>
+        <fact name="finBootSizeCorrect">no</fact>
+      </if>
+      <then>
+        <fact name="can_dive">no</fact>
+        <fact name="reason">Your fins and boots need to be the correct size.</fact>
+      </then>
+    </rule>
+    <rule>
+      <if>
+        <and>
+          <fact name="suitType">dry</fact>
+          <fact name="isDrysuitZipped">no</fact>
+        </and>
+      </if>
+      <then>
+        <fact name="can_dive">no</fact>
+        <fact name="reason">Your drysuit needs to be fully zipped up.</fact>
+      </then>
+    </rule>
+    <rule>
+      <if>
+        <and>
+          <fact name="suitType">dry</fact>
+          <fact name="drysuitHasHoles">yes</fact>
+        </and>
+      </if>
+      <then>
+        <fact name="can_dive">no</fact>
+        <fact name="reason">Your drysuit should not have any holes.</fact>
+      </then>
+    </rule>
+    <rule>
+      <if>
+        <and>
+          <fact name="suitType">wet</fact>
+          <fact name="wetsuitFits">no</fact>
+        </and>
+      </if>
+      <then>
+        <fact name="can_dive">no</fact>
+        <fact name="reason">Your wetsuit needs to fit properly.</fact>
+      </then>
+    </rule>
+    <rule>
+      <if>
+        <not>
+          <fact name="bcdWorksCorrectly">bothWork</fact>
+        </not>
+      </if>
+      <then>
+        <fact name="can_dive">no</fact>
+        <fact name="reason">Your BCD needs to inflate and deflate correctly.</fact>
+      </then>
+    </rule>
+    <rule>
+      <if>
+        <fact name="primaryRegulatorWorks">no</fact>
+      </if>
+      <then>
+        <fact name="can_dive">no</fact>
+        <fact name="reason">Your primary regulator needs to work correctly.</fact>
+      </then>
+    </rule>
+    <rule>
+      <if>
+        <fact name="octopusWorks">no</fact>
+      </if>
+      <then>
+        <fact name="can_dive">no</fact>
+        <fact name="reason">Your octopus needs to work correctly.</fact>
+      </then>
+    </rule>
+    <rule>
+      <if>
+        <not>
+          <fact name="tankPressure">enough</fact>
+        </not>
+      </if>
+      <then>
+        <fact name="can_dive">no</fact>
+        <fact name="reason">Your tank pressure needs to be at least 200 bar.</fact>
+      </then>
+    </rule>
+    <rule>
+      <if>
+        <or>
+          <and>
+            <fact name="divingDepth">upTo40</fact>
+            <fact name="tankContent">gasMix</fact>
+          </and>
+          <and>
+            <fact name="divingDepth">deeperThan40</fact>
+            <fact name="tankContent">air</fact>
+          </and>
+        </or>
+      </if>
+      <then>
+        <fact name="can_dive">no</fact>
+        <fact name="reason">You need to have the proper contents in your air tank. If you dive up to 40 metres deep you should use air and if you dive deeper than 40 metres you should use gas mix.</fact>
+      </then>
+    </rule>
+    <rule>
+      <if>
+        <or>
+          <and>
+            <fact name="bodyWeight">under80</fact>
+            <not>
+              <fact name="weights">8</fact>
+            </not>
+          </and>
+          <and>
+            <fact name="bodyWeight">atLeast80</fact>
+            <not>
+              <fact name="weights">10-12</fact>
+            </not>
+          </and>
+        </or>
+      </if>
+      <then>
+        <fact name="can_dive">no</fact>
+        <fact name="reason">You need to have the proper weights for your body weight. If you weigh less than 80 kilograms you should have 8 kilograms in weights, if you weigh more then you should have between 10 and 12 kilograms in weights.</fact>
+      </then>
+    </rule>
+    <rule>
+      <if>
+        <or>
+          <and>
+            <fact name="maxDivingTime">20</fact>
+            <not>
+              <or>
+                <fact name="computerChargeLevel">50</fact>
+                <fact name="computerChargeLevel">70</fact>
+                <fact name="computerChargeLevel">85</fact>
+                <fact name="computerChargeLevel">100</fact>
+              </or>
+            </not>
+          </and>
+          <and>
+            <fact name="maxDivingTime">30</fact>
+            <not>
+              <or>
+                <fact name="computerChargeLevel">70</fact>
+                <fact name="computerChargeLevel">85</fact>
+                <fact name="computerChargeLevel">100</fact>
+              </or>
+            </not>
+          </and>
+          <and>
+            <fact name="maxDivingTime">45</fact>
+            <not>
+              <or>
+                <fact name="computerChargeLevel">85</fact>
+                <fact name="computerChargeLevel">100</fact>
+              </or>
+            </not>
+          </and>
+          <and>
+            <fact name="maxDivingTime">60</fact>
+            <not>
+              <fact name="computerChargeLevel">100</fact>
+            </not>
+          </and>
+        </or>
+      </if>
+      <then>
+        <fact name="can_dive">no</fact>
+        <fact name="reason">Your dive computer needs to have enough charge for how long you will be diving. For a 20 minute dive it needs at least 50% battery, for a 30 minute dive at least 70% battery, for a 45 minute dive at least 85% battery and for a dive of 1 hour at least 100% battery.</fact>
+      </then>
+    </rule>
+    <rule>
+      <if>
+        <fact name="spgPressureGaugeWorking">no</fact>
+      </if>
+      <then>
+        <fact name="can_dive">no</fact>
+        <fact name="reason">Your SPG pressure gauge needs to work correctly and show the pressure in your air tank.</fact>
+      </then>
+    </rule>
+    <rule>
+      <if>
+        <fact name="surfaceMarkerBuoyAvailable">no</fact>
+      </if>
+      <then>
+        <fact name="can_dive">no</fact>
+        <fact name="reason">There has to be a surface marker buoy available.</fact>
       </then>
     </rule>
   </rules>
@@ -162,8 +372,8 @@
     <question name="suitType">
       <description>What kind of suit are you wearing?</description>
       <answers>
-        <answer value="dry">Wetsuit</answer>
-        <answer value="wet">Drysuit</answer>
+        <answer value="dry">Drysuit</answer>
+        <answer value="wet">Wetsuit</answer>
       </answers>
     </question>
     <question name="isDrysuitZipped">
@@ -173,7 +383,7 @@
         <answer value="no">No</answer>
       </answers>
     </question>
-    <question name="hasDrysuitHoles">
+    <question name="drysuitHasHoles">
       <description>Are there any holes in your drysuit?</description>
       <answers>
         <answer value="yes">Yes</answer>
@@ -216,6 +426,7 @@
     <question name="tankPressure">
       <description>What is the current pressure of your air tank?</description>
       <answers>
+        <!-- TODO: some better options in the answers array -->
         <answer value="enough">200 bar or more</answer>
         <answer value="less">less than 200 bar</answer>
       </answers>
@@ -223,8 +434,8 @@
     <question name="divingDepth">
       <description>How deep do you intend to dive?</description>
       <answers>
-        <answer value="upTo40">up to 40 metres</answer>
-        <answer value="deeperThan40">deeper than 40 metres</answer>
+        <answer value="upTo40">Up to 40 metres</answer>
+        <answer value="deeperThan40">Deeper than 40 metres</answer>
       </answers>
     </question>
     <question name="tankContent">
@@ -239,7 +450,7 @@
     <question name="bodyWeight">
       <description>What is your body weight?</description>
       <answers>
-        <answer value="lessThan80">Under 80 kilograms</answer>
+        <answer value="under80">Under 80 kilograms</answer>
         <answer value="atLeast80">80 kilograms or more</answer>
       </answers>
     </question>
@@ -260,10 +471,9 @@
         <answer value="60">At most 1 hour</answer>
       </answers>
     </question>
-    <question name="computerCharge">
+    <question name="computerChargeLevel">
       <description>What is the charge level of your dive computer?</description>
       <answers>
-        <answer value="0">Less than 50%</answer>
         <answer value="50">At least 50%</answer>
         <answer value="70">At least 70%</answer>
         <answer value="85">At least 85%</answer>
