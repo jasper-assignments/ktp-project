@@ -20,7 +20,7 @@ class Negation:
 @dataclass
 class Rule:
   antecedent: Disjunction | Conjunction | Fact
-  consequent: Fact
+  consequents: list[Fact]
 
 @dataclass
 class Answer:

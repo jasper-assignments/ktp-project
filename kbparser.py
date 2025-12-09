@@ -30,8 +30,8 @@ def parse_consequent(consequent: Element) -> Fact:
 
 def parse_rule(rule: Element) -> Rule:
   antecedent = parse_antecedent(rule.find("if")[0])
-  consequent = parse_consequent(rule.find("then").find("fact"))
-  return Rule(antecedent=antecedent, consequent=consequent)
+  consequents = [parse_consequent(fact) for fact in rule.find("then").findall("fact")]
+  return Rule(antecedent=antecedent, consequents=consequents)
 
 def parse_question(question: Element) -> Question:
   answers = list(map(

@@ -22,13 +22,14 @@ def evaluate_antecedent(
       msg = f"Unknown antecedent type: {type(antecedent)}"
       raise TypeError(msg)
     
-def backward(rules: list[Rule], domain: dict, questions: dict[str, Question], goal: Fact) -> bool:
+def backward(rules: list[Rule], domain: dict, questions: dict[str, Question], goal: Fact):
   if domain.get(goal.name, None) is not None:
     return domain.get(goal.name) == goal.value
   
   for rule in rules:
-    if rule.consequent == goal and (yield from evaluate_antecedent(rules, domain, questions, rule.antecedent)):
-      domain[goal.name] = goal.value
+    if goal in rule.consequents and (yield from evaluate_antecedent(rules, domain, questions, rule.antecedent)):
+      for consequent in rule.consequents:
+        domain[consequent.name] = consequent.value
       return True
       
   if (question := questions.get(goal.name)) is None:

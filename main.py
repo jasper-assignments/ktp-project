@@ -18,7 +18,7 @@ def step(rules: list[Rule], domain: dict, questions: dict[str, Question], goal: 
         return {
             "result": result.value,
             "description": result.value
-                and "The diver cannot go into the water safely."
+                and "The diver cannot go into the water safely. Reason: " + domain.get("reason")
                 or "The diver can go into the water safely.",
         }
 
