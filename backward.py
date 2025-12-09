@@ -1,9 +1,9 @@
-from logic import Disjunction, Conjunction, Fact, Rule, Question
+from logic import Disjunction, Conjunction, Fact, Rule, Question, Negation
 from domain import Domain
 
 def evaluate_antecedent(
     rules: list[Rule], domain: Domain, questions: dict[str, Question], 
-    antecedent: Disjunction | Conjunction | Fact):
+    antecedent: Negation | Disjunction | Conjunction | Fact):
   match antecedent:
     case Fact():
       return (yield from backward(rules, domain, questions, antecedent))
@@ -17,6 +17,8 @@ def evaluate_antecedent(
         if (yield from evaluate_antecedent(rules, domain, questions, disjunct)):
           return True
       return False
+    case Negation():
+      return not (yield from evaluate_antecedent(rules, domain, questions, antecedent.fact))
     case _:
       msg = f"Unknown antecedent type: {type(antecedent)}"
       raise TypeError(msg)

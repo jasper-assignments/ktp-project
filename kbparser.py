@@ -1,6 +1,6 @@
 import xml.etree.ElementTree as ET
 from xml.etree.ElementTree import Element
-from logic import Conjunction, Disjunction, Fact, Rule, Answer, Question
+from logic import Conjunction, Disjunction, Fact, Rule, Answer, Question, Negation
 
 def parse_antecedent(antecedent: Element) -> Disjunction | Conjunction | Fact:
   match antecedent.tag:
@@ -13,6 +13,8 @@ def parse_antecedent(antecedent: Element) -> Disjunction | Conjunction | Fact:
       return Conjunction([parse_antecedent(conjunct) for conjunct in antecedent])
     case "or":
       return Disjunction([parse_antecedent(disjunct) for disjunct in antecedent])
+    case "not":
+      return Negation(parse_antecedent(antecedent[0]))
     case _:
       msg = f"Unknown antecedent type: {antecedent.tag}"
       raise ValueError(msg)

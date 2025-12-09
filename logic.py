@@ -14,6 +14,10 @@ class Disjunction:
   disjuncts: list[Fact | Conjunction]
 
 @dataclass
+class Negation:
+  fact: Fact | Conjunction | Disjunction
+
+@dataclass
 class Rule:
   antecedent: Disjunction | Conjunction | Fact
   consequent: Fact
