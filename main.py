@@ -1,12 +1,10 @@
-from flask import Flask, send_file, session, request, abort
-from flask_session import Session
+from flask import Flask, send_file, session, request
 from kbparser import parse_kb
 from logic import Fact, Question,Rule
 from backward import backward
 
 app = Flask(__name__)
-app.config["SESSION_TYPE"] = "filesystem"
-Session(app)
+app.config["SECRET_KEY"] = "bottomoftheocean"
 
 rules, questions = parse_kb()
 goal = Fact("can_dive", "no")
