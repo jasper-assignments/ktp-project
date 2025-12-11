@@ -169,7 +169,11 @@
       <if>
         <or>
           <and>
-            <fact name="divingDepth">upTo40</fact>
+            <or>
+              <fact name="divingDepth">upTo20</fact>
+              <fact name="divingDepth">20-30</fact>
+              <fact name="divingDepth">30-40</fact>
+            </or>
             <fact name="tankContent">gasMix</fact>
           </and>
           <and>
@@ -267,6 +271,114 @@
       <then>
         <fact name="can_dive">no</fact>
         <fact name="reason">There has to be a surface marker buoy available.</fact>
+      </then>
+    </rule>
+    <rule>
+      <if>
+        <or>
+          <fact name="wind">yes</fact>
+          <fact name="storm">3-</fact>
+        </or>
+      </if>
+      <then>
+        <fact name="can_dive">no</fact>
+        <fact name="reason">The weather conditions are not suitable for diving.</fact>
+      </then>
+    </rule>
+    <rule>
+      <if>
+        <or>
+          <and>
+            <fact name="wave">1.0-1.5</fact>
+            <not>
+              <fact name="expertise">expert</fact>
+            </not>
+          </and>
+          <fact name="wave">1.5+</fact>
+        </or>
+      </if>
+      <then>
+        <fact name="can_dive">no</fact>
+        <fact name="reason">The wave height is too high for safe diving.</fact>
+      </then>
+    </rule>
+    <rule>
+      <if>
+        <fact name="visibility">poor</fact>
+      </if>
+      <then>
+        <fact name="can_dive">no</fact>
+        <fact name="reason">The water visibility is too poor for safe diving.</fact>
+      </then>
+    </rule>
+    <rule>
+      <if>
+        <and>
+          <fact name="divingDepth">upTo20</fact>
+          <fact name="bottomTimePlan">45+</fact>
+        </and>
+      </if>
+      <then>
+        <fact name="can_dive">no</fact>
+        <fact name="reason">For a dive up to 20 metres deep you should not plan to stay longer than 45 minutes at the maximum depth.</fact>
+      </then>
+    </rule>
+    <rule>
+      <if>
+        <and>
+          <fact name="divingDepth">20-30</fact>
+          <or>
+            <fact name="bottomTimePlan">20-45</fact>
+            <fact name="bottomTimePlan">45+</fact>
+          </or>
+        </and>
+      </if>
+      <then>
+        <fact name="can_dive">no</fact>
+        <fact name="reason">For a dive between 20 and 30 metres deep you should not plan to stay longer than 20 minutes at the maximum depth.</fact>
+      </then>
+    </rule>
+    <rule>
+      <if>
+        <and>
+          <fact name="divingDepth">30-40</fact>
+          <or>
+            <fact name="bottomTimePlan">10-20</fact>
+            <fact name="bottomTimePlan">20-45</fact>
+            <fact name="bottomTimePlan">45+</fact>
+          </or>
+        </and>
+      </if>
+      <then>
+        <fact name="can_dive">no</fact>
+        <fact name="reason">For a dive between 30 and 40 metres deep you should not plan to stay longer than 10 minutes at the maximum depth.</fact>
+      </then>
+    </rule>
+    <rule>
+      <if>
+        <fact name="airConsumptionCalculated">no</fact>
+      </if>
+      <then>
+        <fact name="can_dive">no</fact>
+        <fact name="reason">You must calculate your air consumption for this dive beforehand.</fact>
+      </then>
+    </rule>
+    <rule>
+      <if>
+        <fact name="haveBuddy">no</fact>
+      </if>
+      <then>
+        <fact name="can_dive">no</fact>
+        <fact name="reason">You need to have a dive buddy with you. You can't dive alone.</fact>
+      </then>
+    </rule>
+    <rule>
+      <if>
+        <fact name="navigationPlan">no</fact>
+      </if>
+      <then>
+        <fact name="can_dive">no</fact>
+        <fact name="reason">You need to have a navigation plan for your dive.</fact>
       </then>
     </rule>
   </rules>
@@ -434,7 +546,9 @@
     <question name="divingDepth">
       <description>How deep do you intend to dive?</description>
       <answers>
-        <answer value="upTo40">Up to 40 metres</answer>
+        <answer value="upTo20">Up to 20 metres</answer>
+        <answer value="20-30">20 to 30 metres</answer>
+        <answer value="30-40">30 to 40 metres</answer>
         <answer value="deeperThan40">Deeper than 40 metres</answer>
       </answers>
     </question>
@@ -455,7 +569,7 @@
       </answers>
     </question>
     <question name="weights">
-      <description>How much weights have you taken?</description>
+      <description>How many weights have you taken?</description>
       <answers>
         <answer value="8">8 kilograms in weights</answer>
         <answer value="10-12">10-12 kilograms in weights</answer>
@@ -491,6 +605,82 @@
     <!-- Surface marker buoy -->
     <question name="surfaceMarkerBuoyAvailable">
       <description>Is a surface marker buoy available?</description>
+      <answers>
+        <answer value="yes">Yes</answer>
+        <answer value="no">No</answer>
+      </answers>
+    </question>
+    <!-- Environment -->
+    <!-- Weather conditions -->
+    <question name = "wind">
+      <description>Is the wind strong?</description>
+      <answers>
+        <answer value="yes">Yes</answer>
+        <answer value="no">No</answer>
+      </answers>
+    </question>
+    <question name = "storm">
+      <description>When was the last storm?</description>
+      <answers>
+        <answer value="3+">Over three days ago</answer>
+        <answer value="3-">Less than three days ago</answer>
+      </answers>
+    </question>
+    <!-- Wave height -->
+    <question name="wave">
+      <description>What is the height of the waves?</description>
+      <answers>
+        <answer value="0-0.5">Up to 0.5 metres</answer>
+        <answer value="0.5-1.0">0.5 to 1 metre</answer>
+        <answer value="1.0-1.5">1 to 1.5 metres</answer>
+        <answer value="1.5+">Over 1.5 metres</answer>
+      </answers>
+    </question>
+    <question name="expertise">
+      <description>What is your level of expertise in diving?</description>
+      <answers>
+        <answer value="beginner">Beginner</answer>
+        <answer value="intermediate">Intermediate</answer>
+        <answer value="expert">Expert</answer>
+      </answers>
+    </question>
+    <!-- Water visibility -->
+    <question name="visibility">
+      <description>What is the water visibility?</description>
+      <answers>
+        <answer value="poor">Poor (less than 10 metres)</answer>
+        <answer value="good">Good (over 10 metres)</answer>
+      </answers>
+    </question>
+    <!-- Dive plan -->
+    <question name="bottomTimePlan">
+      <description>How long do you plan to stay at the maximum depth?</description>
+      <answers>
+        <answer value="10">10 minutes or less</answer>
+        <answer value="10-20">From 10 to 20 minutes</answer>
+        <answer value="20-45">From 20 to 45 minutes</answer>
+        <answer value="45+">More than 45 minutes</answer>
+      </answers>
+    </question>
+    <!-- Air consumption -->
+    <question name="airConsumptionCalculated">
+      <description>Have you calculated your air consumption for this dive?</description>
+      <answers>
+        <answer value="yes">Yes</answer>
+        <answer value="no">No</answer>
+      </answers>
+    </question>
+    <!-- Buddy -->
+    <question name="haveBuddy">
+      <description>Do you have a dive buddy with you?</description>
+      <answers>
+        <answer value="yes">Yes</answer>
+        <answer value="no">No</answer>
+      </answers>
+    </question>
+    <!-- Navigation plan -->
+    <question name="navigationPlan">
+      <description>Do you have a navigation plan for your dive?</description>
       <answers>
         <answer value="yes">Yes</answer>
         <answer value="no">No</answer>
