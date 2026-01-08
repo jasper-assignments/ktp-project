@@ -46,3 +46,6 @@ def undo():
     domain[goal.name] = None
     session["domain"] = domain
     return step(rules, domain, questions, goal)
+
+if __name__ == "__main__":
+    app.run()
