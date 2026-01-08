@@ -411,10 +411,9 @@
      <question name="bloodPressure">
       <description>What is your current blood pressure?</description>
       <answers>
-        <!-- TODO: define proper ranges here for the answers -->
-        <answer value="low">25/10</answer>
-        <answer value="normal">in a range near 125/75</answer>
-        <answer value="high">180/90</answer>
+        <answer value="low">Lower than 125/75</answer>
+        <answer value="normal">125/75</answer>
+        <answer value="high">Higher than 125/75</answer>
       </answers>
     </question>
     <!-- Energy -->
@@ -538,9 +537,8 @@
     <question name="tankPressure">
       <description>What is the current pressure of your air tank?</description>
       <answers>
-        <!-- TODO: some better options in the answers array -->
-        <answer value="enough">200 bar or more</answer>
-        <answer value="less">less than 200 bar</answer>
+        <answer value="enough">200 bars or more</answer>
+        <answer value="less">less than 200 bars</answer>
       </answers>
     </question>
     <question name="divingDepth">
@@ -560,7 +558,6 @@
       </answers>
     </question>
     <!-- Weights -->
-    <!-- TODO: put in the other parameters like wet suit -> less weight, salty water more weight than non salty water, and what for a drysuit then?-->
     <question name="bodyWeight">
       <description>What is your body weight?</description>
       <answers>
