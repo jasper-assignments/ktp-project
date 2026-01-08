@@ -3,7 +3,7 @@
   <title>Scuba diving knowledge system</title>
   <description>This knowledge base determines whether a diver can go into the water safely.</description>
 
-  <goal name="can_dive">
+  <goal name="canDive">
     <description>Can the diver go into the water safely?</description>
     <answer value="yes"><![CDATA[The diver <em>can</em> go into the water safely.]]></answer>
     <answer value="no">The diver cannot go into the water safely.</answer>
@@ -20,7 +20,7 @@
         </or>
       </if>
       <then>
-        <fact name="can_dive">no</fact>
+        <fact name="canDive">no</fact>
         <fact name="reason">You are not in good health.</fact>
       </then>
     </rule>
@@ -31,7 +31,7 @@
         </not>
       </if>
       <then>
-        <fact name="can_dive">no</fact>
+        <fact name="canDive">no</fact>
         <fact name="reason">Your blood pressure is not normal.</fact>
       </then>
     </rule>
@@ -47,7 +47,7 @@
         </or>
       </if>
       <then>
-        <fact name="can_dive">no</fact>
+        <fact name="canDive">no</fact>
         <fact name="reason">You don't have high energy.</fact>
       </then>
     </rule>
@@ -56,7 +56,7 @@
         <fact name="underInfluence">yes</fact>
       </if>
       <then>
-        <fact name="can_dive">no</fact>
+        <fact name="canDive">no</fact>
         <fact name="reason">You are under the influence of drugs or alcohol.</fact>
       </then>
     </rule>
@@ -67,7 +67,7 @@
         <fact name="maskFits">no</fact>
       </if>
       <then>
-        <fact name="can_dive">no</fact>
+        <fact name="canDive">no</fact>
         <fact name="reason">You need a proper fitting mask that seals well.</fact>
       </then>
     </rule>
@@ -76,7 +76,7 @@
         <fact name="canHoldNose">no</fact>
       </if>
       <then>
-        <fact name="can_dive">no</fact>
+        <fact name="canDive">no</fact>
         <fact name="reason">You need a to be able to hold your nose.</fact>
       </then>
     </rule>
@@ -85,7 +85,7 @@
         <fact name="finBootSizeCorrect">no</fact>
       </if>
       <then>
-        <fact name="can_dive">no</fact>
+        <fact name="canDive">no</fact>
         <fact name="reason">Your fins and boots need to be the correct size.</fact>
       </then>
     </rule>
@@ -97,7 +97,7 @@
         </and>
       </if>
       <then>
-        <fact name="can_dive">no</fact>
+        <fact name="canDive">no</fact>
         <fact name="reason">Your drysuit needs to be fully zipped up.</fact>
       </then>
     </rule>
@@ -109,7 +109,7 @@
         </and>
       </if>
       <then>
-        <fact name="can_dive">no</fact>
+        <fact name="canDive">no</fact>
         <fact name="reason">Your drysuit should not have any holes.</fact>
       </then>
     </rule>
@@ -121,7 +121,7 @@
         </and>
       </if>
       <then>
-        <fact name="can_dive">no</fact>
+        <fact name="canDive">no</fact>
         <fact name="reason">Your wetsuit needs to fit properly.</fact>
       </then>
     </rule>
@@ -132,7 +132,7 @@
         </not>
       </if>
       <then>
-        <fact name="can_dive">no</fact>
+        <fact name="canDive">no</fact>
         <fact name="reason">Your BCD needs to inflate and deflate correctly.</fact>
       </then>
     </rule>
@@ -141,7 +141,7 @@
         <fact name="primaryRegulatorWorks">no</fact>
       </if>
       <then>
-        <fact name="can_dive">no</fact>
+        <fact name="canDive">no</fact>
         <fact name="reason">Your primary regulator needs to work correctly.</fact>
       </then>
     </rule>
@@ -150,7 +150,7 @@
         <fact name="octopusWorks">no</fact>
       </if>
       <then>
-        <fact name="can_dive">no</fact>
+        <fact name="canDive">no</fact>
         <fact name="reason">Your octopus needs to work correctly.</fact>
       </then>
     </rule>
@@ -161,7 +161,7 @@
         </not>
       </if>
       <then>
-        <fact name="can_dive">no</fact>
+        <fact name="canDive">no</fact>
         <fact name="reason">Your tank pressure needs to be at least 200 bar.</fact>
       </then>
     </rule>
@@ -183,7 +183,7 @@
         </or>
       </if>
       <then>
-        <fact name="can_dive">no</fact>
+        <fact name="canDive">no</fact>
         <fact name="reason">You need to have the proper contents in your air tank. If you dive up to 40 metres deep you should use air and if you dive deeper than 40 metres you should use gas mix.</fact>
       </then>
     </rule>
@@ -205,7 +205,7 @@
         </or>
       </if>
       <then>
-        <fact name="can_dive">no</fact>
+        <fact name="canDive">no</fact>
         <fact name="reason">You need to have the proper weights for your body weight. If you weigh less than 80 kilograms you should have 8 kilograms in weights, if you weigh more then you should have between 10 and 12 kilograms in weights.</fact>
       </then>
     </rule>
@@ -251,7 +251,7 @@
         </or>
       </if>
       <then>
-        <fact name="can_dive">no</fact>
+        <fact name="canDive">no</fact>
         <fact name="reason">Your dive computer needs to have enough charge for how long you will be diving. For a 20 minute dive it needs at least 50% battery, for a 30 minute dive at least 70% battery, for a 45 minute dive at least 85% battery and for a dive of 1 hour at least 100% battery.</fact>
       </then>
     </rule>
@@ -260,7 +260,7 @@
         <fact name="spgPressureGaugeWorking">no</fact>
       </if>
       <then>
-        <fact name="can_dive">no</fact>
+        <fact name="canDive">no</fact>
         <fact name="reason">Your SPG pressure gauge needs to work correctly and show the pressure in your air tank.</fact>
       </then>
     </rule>
@@ -269,7 +269,7 @@
         <fact name="surfaceMarkerBuoyAvailable">no</fact>
       </if>
       <then>
-        <fact name="can_dive">no</fact>
+        <fact name="canDive">no</fact>
         <fact name="reason">There has to be a surface marker buoy available.</fact>
       </then>
     </rule>
@@ -281,7 +281,7 @@
         </or>
       </if>
       <then>
-        <fact name="can_dive">no</fact>
+        <fact name="canDive">no</fact>
         <fact name="reason">The weather conditions are not suitable for diving.</fact>
       </then>
     </rule>
@@ -298,7 +298,7 @@
         </or>
       </if>
       <then>
-        <fact name="can_dive">no</fact>
+        <fact name="canDive">no</fact>
         <fact name="reason">The wave height is too high for safe diving.</fact>
       </then>
     </rule>
@@ -307,7 +307,7 @@
         <fact name="visibility">poor</fact>
       </if>
       <then>
-        <fact name="can_dive">no</fact>
+        <fact name="canDive">no</fact>
         <fact name="reason">The water visibility is too poor for safe diving.</fact>
       </then>
     </rule>
@@ -319,7 +319,7 @@
         </and>
       </if>
       <then>
-        <fact name="can_dive">no</fact>
+        <fact name="canDive">no</fact>
         <fact name="reason">For a dive up to 20 metres deep you should not plan to stay longer than 45 minutes at the maximum depth.</fact>
       </then>
     </rule>
@@ -334,7 +334,7 @@
         </and>
       </if>
       <then>
-        <fact name="can_dive">no</fact>
+        <fact name="canDive">no</fact>
         <fact name="reason">For a dive between 20 and 30 metres deep you should not plan to stay longer than 20 minutes at the maximum depth.</fact>
       </then>
     </rule>
@@ -350,7 +350,7 @@
         </and>
       </if>
       <then>
-        <fact name="can_dive">no</fact>
+        <fact name="canDive">no</fact>
         <fact name="reason">For a dive between 30 and 40 metres deep you should not plan to stay longer than 10 minutes at the maximum depth.</fact>
       </then>
     </rule>
@@ -359,7 +359,7 @@
         <fact name="airConsumptionCalculated">no</fact>
       </if>
       <then>
-        <fact name="can_dive">no</fact>
+        <fact name="canDive">no</fact>
         <fact name="reason">You must calculate your air consumption for this dive beforehand.</fact>
       </then>
     </rule>
@@ -368,7 +368,7 @@
         <fact name="haveBuddy">no</fact>
       </if>
       <then>
-        <fact name="can_dive">no</fact>
+        <fact name="canDive">no</fact>
         <fact name="reason">You need to have a dive buddy with you. You can't dive alone.</fact>
       </then>
     </rule>
@@ -377,7 +377,7 @@
         <fact name="navigationPlan">no</fact>
       </if>
       <then>
-        <fact name="can_dive">no</fact>
+        <fact name="canDive">no</fact>
         <fact name="reason">You need to have a navigation plan for your dive.</fact>
       </then>
     </rule>

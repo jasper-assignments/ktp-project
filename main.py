@@ -7,7 +7,7 @@ app = Flask(__name__)
 app.config["SECRET_KEY"] = "bottomoftheocean"
 
 rules, questions = parse_kb()
-goal = Fact("can_dive", "no")
+goal = Fact("canDive", "no")
 
 def step(rules: list[Rule], domain: dict, questions: dict[str, Question], goal: Fact):
     engine = backward(rules, domain, questions, goal)
@@ -28,7 +28,7 @@ def ask_user(question: Question) -> str:
 
 def test_backward() -> None:
     domain = {}
-    goal = Fact(name="can_dive", value="no")
+    goal = Fact(name="canDive", value="no")
     result = None
     while True:
         result = step(rules, domain, questions, goal)
