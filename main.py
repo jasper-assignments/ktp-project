@@ -2,6 +2,7 @@ from flask import Flask, send_file, session, request
 from kbparser import parse_kb
 from logic import Fact, Question,Rule
 from backward import backward
+import json
 
 app = Flask(__name__)
 app.config["SECRET_KEY"] = "bottomoftheocean"
@@ -29,22 +30,24 @@ def index():
 @app.post("/start")
 def start():
     domain = {}
-    session["domain"] = domain
-    return step(rules, domain, questions, goal)
+    result = step(rules, domain, questions, goal)
+    session["domain"] = json.dumps(domain)
+    session["prevDomain"] = json.dumps(domain)
+    return result
 
 @app.post("/answer")
 def answer():
+    session["prevDomain"] = json.dumps(session["domain"])
     domain = session["domain"]
     domain[request.json["question"]] = request.json["answer"]
-    session["domain"] = domain
-    return step(rules, domain, questions, goal)
+    result = step(rules, domain, questions, goal)
+    session["domain"] = json.dumps(domain)
+    return result
 
 @app.post("/undo")
 def undo():
+    session["domain"] = json.dumps(session["prevDomain"])
     domain = session["domain"]
-    domain[request.json["question"]] = None
-    domain[goal.name] = None
-    session["domain"] = domain
     return step(rules, domain, questions, goal)
 
 if __name__ == "__main__":

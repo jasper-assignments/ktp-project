@@ -13,6 +13,15 @@
     <!-- Diver -->
     <rule>
       <if>
+        <fact name="healthy">no</fact>
+      </if>
+      <then>
+        <fact name="canDive">no</fact>
+        <fact name="reason">You are not in good health.</fact>
+      </then>
+    </rule>
+    <rule>
+      <if>
         <or>
           <fact name="fever">yes</fact>
           <fact name="sinusProblems">yes</fact>
@@ -20,8 +29,7 @@
         </or>
       </if>
       <then>
-        <fact name="canDive">no</fact>
-        <fact name="reason">You are not in good health.</fact>
+        <fact name="healthy">no</fact>
       </then>
     </rule>
     <rule>
@@ -37,6 +45,15 @@
     </rule>
     <rule>
       <if>
+        <fact name="energised">no</fact>
+      </if>
+      <then>
+        <fact name="canDive">no</fact>
+        <fact name="reason">You don't have high energy.</fact>
+      </then>
+    </rule>
+    <rule>
+      <if>
         <or>
           <fact name="tired">yes</fact>
           <fact name="hydrated">no</fact>
@@ -47,8 +64,7 @@
         </or>
       </if>
       <then>
-        <fact name="canDive">no</fact>
-        <fact name="reason">You don't have high energy.</fact>
+        <fact name="energised">no</fact>
       </then>
     </rule>
     <rule>
@@ -92,7 +108,7 @@
     <rule>
       <if>
         <and>
-          <fact name="suitType">dry</fact>
+          <fact name="needsDrysuitZipped">yes</fact>
           <fact name="isDrysuitZipped">no</fact>
         </and>
       </if>
@@ -104,7 +120,7 @@
     <rule>
       <if>
         <and>
-          <fact name="suitType">dry</fact>
+          <fact name="drysuitCanHaveHoles">no</fact>
           <fact name="drysuitHasHoles">yes</fact>
         </and>
       </if>
@@ -115,14 +131,31 @@
     </rule>
     <rule>
       <if>
+        <fact name="suitType">dry</fact>
+      </if>
+      <then>
+        <fact name="needsDrysuitZipped">yes</fact>
+        <fact name="drysuitCanHaveHole">no</fact>
+      </then>
+    </rule>
+    <rule>
+      <if>
         <and>
-          <fact name="suitType">wet</fact>
+          <fact name="wetsuitNeedsToFit">yes</fact>
           <fact name="wetsuitFits">no</fact>
         </and>
       </if>
       <then>
         <fact name="canDive">no</fact>
         <fact name="reason">Your wetsuit needs to fit properly.</fact>
+      </then>
+    </rule>
+    <rule>
+      <if>
+        <fact name="suitType">wet</fact>
+      </if>
+      <then>
+        <fact name="wetsuitNeedsToFit">yes</fact>
       </then>
     </rule>
     <rule>
@@ -168,36 +201,62 @@
     <rule>
       <if>
         <or>
-          <and>
-            <or>
-              <fact name="divingDepth">upTo20</fact>
-              <fact name="divingDepth">20-30</fact>
-              <fact name="divingDepth">30-40</fact>
-            </or>
-            <fact name="tankContent">gasMix</fact>
-          </and>
-          <and>
-            <fact name="divingDepth">deeperThan40</fact>
-            <fact name="tankContent">air</fact>
-          </and>
+          <fact name="divingDepth">upTo20</fact>
+          <fact name="divingDepth">20-30</fact>
+          <fact name="divingDepth">30-40</fact>
         </or>
       </if>
       <then>
+        <fact name="tankContentNeeded">air</fact>
+      </then>
+    </rule>
+    <rule>
+      <if>
+        <fact name="divingDepth">deeperThan40</fact>
+      </if>
+      <then>
+        <fact name="tankContentNeeded">gasMix</fact>
+      </then>
+    </rule>
+    <rule>
+      <if>
+        <and>
+          <fact name="tankContentNeeded">air</fact>
+          <not>
+            <fact name="tankContent">air</fact>
+          </not>
+        </and>
+      </if>
+      <then>
         <fact name="canDive">no</fact>
-        <fact name="reason">You need to have the proper contents in your air tank. If you dive up to 40 metres deep you should use air and if you dive deeper than 40 metres you should use gas mix.</fact>
+        <fact name="reason">You need to have air in your air tank for dives up to 40 metres deep.</fact>
+      </then>
+    </rule>
+    <rule>
+      <if>
+        <and>
+          <fact name="tankContentNeeded">gasMix</fact>
+          <not>
+            <fact name="tankContent">gasMix</fact>
+          </not>
+        </and>
+      </if>
+      <then>
+        <fact name="canDive">no</fact>
+        <fact name="reason">You need to have gas mix in your air tank for dives deeper than 40 metres.</fact>
       </then>
     </rule>
     <rule>
       <if>
         <or>
           <and>
-            <fact name="bodyWeight">under80</fact>
+            <fact name="weightsNeeded">8</fact>
             <not>
               <fact name="weights">8</fact>
             </not>
           </and>
           <and>
-            <fact name="bodyWeight">atLeast80</fact>
+            <fact name="weightsNeeded">10-12</fact>
             <not>
               <fact name="weights">10-12</fact>
             </not>
@@ -207,6 +266,31 @@
       <then>
         <fact name="canDive">no</fact>
         <fact name="reason">You need to have the proper weights for your body weight. If you weigh less than 80 kilograms you should have 8 kilograms in weights, if you weigh more then you should have between 10 and 12 kilograms in weights.</fact>
+      </then>
+    </rule>
+    <rule>
+      <if>
+        <fact name="bodyWeight">under80</fact>
+      </if>
+      <then>
+        <fact name="weightsNeeded">8</fact>
+      </then>
+    </rule>
+    <rule>
+      <if>
+        <fact name="bodyWeight">atLeast80</fact>
+      </if>
+      <then>
+        <fact name="weightsNeeded">10-12</fact>
+      </then>
+    </rule>
+    <rule>
+      <if>
+        <fact name="computerCharged">no</fact>
+      </if>
+      <then>
+        <fact name="canDive">no</fact>
+        <fact name="reason">Your dive computer needs to have enough charge for how long you will be diving. For a 20 minute dive it needs at least 50% battery, for a 30 minute dive at least 70% battery, for a 45 minute dive at least 85% battery and for a dive of 1 hour at least 100% battery.</fact>
       </then>
     </rule>
     <rule>
@@ -251,8 +335,7 @@
         </or>
       </if>
       <then>
-        <fact name="canDive">no</fact>
-        <fact name="reason">Your dive computer needs to have enough charge for how long you will be diving. For a 20 minute dive it needs at least 50% battery, for a 30 minute dive at least 70% battery, for a 45 minute dive at least 85% battery and for a dive of 1 hour at least 100% battery.</fact>
+        <fact name="computerCharged">no</fact>
       </then>
     </rule>
     <rule>
@@ -275,10 +358,20 @@
     </rule>
     <rule>
       <if>
-        <or>
-          <fact name="wind">yes</fact>
-          <fact name="storm">3-</fact>
-        </or>
+        <and>
+          <fact name="wind">no</fact>
+          <fact name="storm">3+</fact>
+        </and>
+      </if>
+      <then>
+        <fact name="isWeatherAppropiate">yes</fact>
+      </then>
+    </rule>
+    <rule>
+      <if>
+        <not>
+          <fact name="isWeatherAppropiate">yes</fact>
+        </not>
       </if>
       <then>
         <fact name="canDive">no</fact>
@@ -287,14 +380,30 @@
     </rule>
     <rule>
       <if>
+        <fact name="expertise">expert</fact>
+      </if>
+      <then>
+        <fact name="wall"></fact>
+      </then>
+    </rule>
+    <rule>
+      <if>
+        <and>
+          <fact name="wave">1.0-1.5</fact>
+          <not>
+            <fact name="expertise">expert</fact>
+          </not>
+        </and>
+      </if>
+      <then>
+        <fact name="hasEnoughExpertiseForWave">no</fact>
+      </then>
+    </rule>
+    <rule>
+      <if>
         <or>
-          <and>
-            <fact name="wave">1.0-1.5</fact>
-            <not>
-              <fact name="expertise">expert</fact>
-            </not>
-          </and>
-          <fact name="wave">1.5+</fact>
+          <fact name="hasEnoughExpertiseForWave">no</fact>
+          <fact name="wave">1.5+</fact> <!--No one can safely dive with this wave-->
         </or>
       </if>
       <then>
