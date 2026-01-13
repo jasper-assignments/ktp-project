@@ -13,7 +13,7 @@
     <!-- Diver -->
     <rule>
       <if>
-        <fact name="healthy">no</fact>
+        <fact name="diver.healthy">no</fact>
       </if>
       <then>
         <fact name="canDive">no</fact>
@@ -23,19 +23,19 @@
     <rule>
       <if>
         <or>
-          <fact name="fever">yes</fact>
-          <fact name="sinusProblems">yes</fact>
-          <fact name="earPain">yes</fact>
+          <fact name="diver.fever">yes</fact>
+          <fact name="diver.sinusProblems">yes</fact>
+          <fact name="diver.earPain">yes</fact>
         </or>
       </if>
       <then>
-        <fact name="healthy">no</fact>
+        <fact name="diver.healthy">no</fact>
       </then>
     </rule>
     <rule>
       <if>
         <not>
-          <fact name="bloodPressure">normal</fact>
+          <fact name="diver.bloodPressure">normal</fact>
         </not>
       </if>
       <then>
@@ -45,7 +45,7 @@
     </rule>
     <rule>
       <if>
-        <fact name="energised">no</fact>
+        <fact name="diver.energised">no</fact>
       </if>
       <then>
         <fact name="canDive">no</fact>
@@ -55,21 +55,21 @@
     <rule>
       <if>
         <or>
-          <fact name="tired">yes</fact>
-          <fact name="hydrated">no</fact>
+          <fact name="diver.tired">yes</fact>
+          <fact name="diver.hydrated">no</fact>
           <not>
-            <fact name="satiety">satisfied</fact>
+            <fact name="diver.satiety">satisfied</fact>
           </not>
-          <fact name="hungover">yes</fact>
+          <fact name="diver.hungover">yes</fact>
         </or>
       </if>
       <then>
-        <fact name="energised">no</fact>
+        <fact name="diver.energised">no</fact>
       </then>
     </rule>
     <rule>
       <if>
-        <fact name="underInfluence">yes</fact>
+        <fact name="diver.underInfluence">yes</fact>
       </if>
       <then>
         <fact name="canDive">no</fact>
@@ -80,7 +80,7 @@
     <!-- Gear -->
     <rule>
       <if>
-        <fact name="maskFits">no</fact>
+        <fact name="gear.maskFits">no</fact>
       </if>
       <then>
         <fact name="canDive">no</fact>
@@ -89,7 +89,7 @@
     </rule>
     <rule>
       <if>
-        <fact name="canHoldNose">no</fact>
+        <fact name="gear.canHoldNose">no</fact>
       </if>
       <then>
         <fact name="canDive">no</fact>
@@ -98,7 +98,7 @@
     </rule>
     <rule>
       <if>
-        <fact name="finBootSizeCorrect">no</fact>
+        <fact name="gear.finBootSizeCorrect">no</fact>
       </if>
       <then>
         <fact name="canDive">no</fact>
@@ -108,8 +108,8 @@
     <rule>
       <if>
         <and>
-          <fact name="needsDrysuitZipped">yes</fact>
-          <fact name="isDrysuitZipped">no</fact>
+          <fact name="gear.needsDrysuitZipped">yes</fact>
+          <fact name="gear.isDrysuitZipped">no</fact>
         </and>
       </if>
       <then>
@@ -120,8 +120,8 @@
     <rule>
       <if>
         <and>
-          <fact name="drysuitCanHaveHoles">no</fact>
-          <fact name="drysuitHasHoles">yes</fact>
+          <fact name="gear.drysuitCanHaveHoles">no</fact>
+          <fact name="gear.drysuitHasHoles">yes</fact>
         </and>
       </if>
       <then>
@@ -131,18 +131,18 @@
     </rule>
     <rule>
       <if>
-        <fact name="suitType">dry</fact>
+        <fact name="gear.suitType">dry</fact>
       </if>
       <then>
-        <fact name="needsDrysuitZipped">yes</fact>
-        <fact name="drysuitCanHaveHole">no</fact>
+        <fact name="gear.needsDrysuitZipped">yes</fact>
+        <fact name="gear.drysuitCanHaveHole">no</fact>
       </then>
     </rule>
     <rule>
       <if>
         <and>
-          <fact name="wetsuitNeedsToFit">yes</fact>
-          <fact name="wetsuitFits">no</fact>
+          <fact name="gear.wetsuitNeedsToFit">yes</fact>
+          <fact name="gear.wetsuitFits">no</fact>
         </and>
       </if>
       <then>
@@ -152,16 +152,16 @@
     </rule>
     <rule>
       <if>
-        <fact name="suitType">wet</fact>
+        <fact name="gear.suitType">wet</fact>
       </if>
       <then>
-        <fact name="wetsuitNeedsToFit">yes</fact>
+        <fact name="gear.wetsuitNeedsToFit">yes</fact>
       </then>
     </rule>
     <rule>
       <if>
         <not>
-          <fact name="bcdWorksCorrectly">bothWork</fact>
+          <fact name="gear.bcdWorksCorrectly">bothWork</fact>
         </not>
       </if>
       <then>
@@ -171,7 +171,7 @@
     </rule>
     <rule>
       <if>
-        <fact name="primaryRegulatorWorks">no</fact>
+        <fact name="gear.primaryRegulatorWorks">no</fact>
       </if>
       <then>
         <fact name="canDive">no</fact>
@@ -180,7 +180,7 @@
     </rule>
     <rule>
       <if>
-        <fact name="octopusWorks">no</fact>
+        <fact name="gear.octopusWorks">no</fact>
       </if>
       <then>
         <fact name="canDive">no</fact>
@@ -190,7 +190,7 @@
     <rule>
       <if>
         <not>
-          <fact name="tankPressure">enough</fact>
+          <fact name="gear.tankPressure">enough</fact>
         </not>
       </if>
       <then>
@@ -201,29 +201,29 @@
     <rule>
       <if>
         <or>
-          <fact name="divingDepth">upTo20</fact>
-          <fact name="divingDepth">20-30</fact>
-          <fact name="divingDepth">30-40</fact>
+          <fact name="plan.divingDepth">upTo20</fact>
+          <fact name="plan.divingDepth">20-30</fact>
+          <fact name="plan.divingDepth">30-40</fact>
         </or>
       </if>
       <then>
-        <fact name="tankContentNeeded">air</fact>
+        <fact name="gear.tankContentNeeded">air</fact>
       </then>
     </rule>
     <rule>
       <if>
-        <fact name="divingDepth">deeperThan40</fact>
+        <fact name="plan.divingDepth">deeperThan40</fact>
       </if>
       <then>
-        <fact name="tankContentNeeded">gasMix</fact>
+        <fact name="gear.tankContentNeeded">gasMix</fact>
       </then>
     </rule>
     <rule>
       <if>
         <and>
-          <fact name="tankContentNeeded">air</fact>
+          <fact name="gear.tankContentNeeded">air</fact>
           <not>
-            <fact name="tankContent">air</fact>
+            <fact name="gear.tankContent">air</fact>
           </not>
         </and>
       </if>
@@ -235,9 +235,9 @@
     <rule>
       <if>
         <and>
-          <fact name="tankContentNeeded">gasMix</fact>
+          <fact name="gear.tankContentNeeded">gasMix</fact>
           <not>
-            <fact name="tankContent">gasMix</fact>
+            <fact name="gear.tankContent">gasMix</fact>
           </not>
         </and>
       </if>
@@ -250,15 +250,15 @@
       <if>
         <or>
           <and>
-            <fact name="weightsNeeded">8</fact>
+            <fact name="gear.weightsNeeded">8</fact>
             <not>
-              <fact name="weights">8</fact>
+              <fact name="gear.weights">8</fact>
             </not>
           </and>
           <and>
-            <fact name="weightsNeeded">10-12</fact>
+            <fact name="gear.weightsNeeded">10-12</fact>
             <not>
-              <fact name="weights">10-12</fact>
+              <fact name="gear.weights">10-12</fact>
             </not>
           </and>
         </or>
@@ -270,23 +270,23 @@
     </rule>
     <rule>
       <if>
-        <fact name="bodyWeight">under80</fact>
+        <fact name="diver.bodyWeight">under80</fact>
       </if>
       <then>
-        <fact name="weightsNeeded">8</fact>
+        <fact name="gear.weightsNeeded">8</fact>
       </then>
     </rule>
     <rule>
       <if>
-        <fact name="bodyWeight">atLeast80</fact>
+        <fact name="diver.bodyWeight">atLeast80</fact>
       </if>
       <then>
-        <fact name="weightsNeeded">10-12</fact>
+        <fact name="gear.weightsNeeded">10-12</fact>
       </then>
     </rule>
     <rule>
       <if>
-        <fact name="computerCharged">no</fact>
+        <fact name="gear.computerCharged">no</fact>
       </if>
       <then>
         <fact name="canDive">no</fact>
@@ -297,50 +297,50 @@
       <if>
         <or>
           <and>
-            <fact name="maxDivingTime">20</fact>
+            <fact name="plan.maxDivingTime">20</fact>
             <not>
               <or>
-                <fact name="computerChargeLevel">50</fact>
-                <fact name="computerChargeLevel">70</fact>
-                <fact name="computerChargeLevel">85</fact>
-                <fact name="computerChargeLevel">100</fact>
+                <fact name="gear.computerChargeLevel">50</fact>
+                <fact name="gear.computerChargeLevel">70</fact>
+                <fact name="gear.computerChargeLevel">85</fact>
+                <fact name="gear.computerChargeLevel">100</fact>
               </or>
             </not>
           </and>
           <and>
-            <fact name="maxDivingTime">30</fact>
+            <fact name="plan.maxDivingTime">30</fact>
             <not>
               <or>
-                <fact name="computerChargeLevel">70</fact>
-                <fact name="computerChargeLevel">85</fact>
-                <fact name="computerChargeLevel">100</fact>
+                <fact name="gear.computerChargeLevel">70</fact>
+                <fact name="gear.computerChargeLevel">85</fact>
+                <fact name="gear.computerChargeLevel">100</fact>
               </or>
             </not>
           </and>
           <and>
-            <fact name="maxDivingTime">45</fact>
+            <fact name="plan.maxDivingTime">45</fact>
             <not>
               <or>
-                <fact name="computerChargeLevel">85</fact>
-                <fact name="computerChargeLevel">100</fact>
+                <fact name="gear.computerChargeLevel">85</fact>
+                <fact name="gear.computerChargeLevel">100</fact>
               </or>
             </not>
           </and>
           <and>
-            <fact name="maxDivingTime">60</fact>
+            <fact name="plan.maxDivingTime">60</fact>
             <not>
-              <fact name="computerChargeLevel">100</fact>
+              <fact name="gear.computerChargeLevel">100</fact>
             </not>
           </and>
         </or>
       </if>
       <then>
-        <fact name="computerCharged">no</fact>
+        <fact name="gear.computerCharged">no</fact>
       </then>
     </rule>
     <rule>
       <if>
-        <fact name="spgPressureGaugeWorking">no</fact>
+        <fact name="gear.spgPressureGaugeWorking">no</fact>
       </if>
       <then>
         <fact name="canDive">no</fact>
@@ -349,28 +349,30 @@
     </rule>
     <rule>
       <if>
-        <fact name="surfaceMarkerBuoyAvailable">no</fact>
+        <fact name="gear.surfaceMarkerBuoyAvailable">no</fact>
       </if>
       <then>
         <fact name="canDive">no</fact>
         <fact name="reason">There has to be a surface marker buoy available.</fact>
       </then>
     </rule>
+
+    <!-- Environment -->
     <rule>
       <if>
         <and>
-          <fact name="wind">no</fact>
-          <fact name="storm">3+</fact>
+          <fact name="env.wind">no</fact>
+          <fact name="env.storm">3+</fact>
         </and>
       </if>
       <then>
-        <fact name="isWeatherAppropiate">yes</fact>
+        <fact name="env.isWeatherAppropriate">yes</fact>
       </then>
     </rule>
     <rule>
       <if>
         <not>
-          <fact name="isWeatherAppropiate">yes</fact>
+          <fact name="env.isWeatherAppropriate">yes</fact>
         </not>
       </if>
       <then>
@@ -380,30 +382,22 @@
     </rule>
     <rule>
       <if>
-        <fact name="expertise">expert</fact>
-      </if>
-      <then>
-        <fact name="wall"></fact>
-      </then>
-    </rule>
-    <rule>
-      <if>
         <and>
-          <fact name="wave">1.0-1.5</fact>
+          <fact name="env.wave">1.0-1.5</fact>
           <not>
-            <fact name="expertise">expert</fact>
+            <fact name="diver.expertise">expert</fact>
           </not>
         </and>
       </if>
       <then>
-        <fact name="hasEnoughExpertiseForWave">no</fact>
+        <fact name="plan.hasEnoughExpertiseForWave">no</fact>
       </then>
     </rule>
     <rule>
       <if>
         <or>
-          <fact name="hasEnoughExpertiseForWave">no</fact>
-          <fact name="wave">1.5+</fact> <!--No one can safely dive with this wave-->
+          <fact name="plan.hasEnoughExpertiseForWave">no</fact>
+          <fact name="env.wave">1.5+</fact> <!--No one can safely dive with this wave-->
         </or>
       </if>
       <then>
@@ -413,18 +407,20 @@
     </rule>
     <rule>
       <if>
-        <fact name="visibility">poor</fact>
+        <fact name="env.visibility">poor</fact>
       </if>
       <then>
         <fact name="canDive">no</fact>
         <fact name="reason">The water visibility is too poor for safe diving.</fact>
       </then>
     </rule>
+
+    <!-- Plan -->
     <rule>
       <if>
         <and>
-          <fact name="divingDepth">upTo20</fact>
-          <fact name="bottomTimePlan">45+</fact>
+          <fact name="plan.divingDepth">upTo20</fact>
+          <fact name="plan.bottomTimePlan">45+</fact>
         </and>
       </if>
       <then>
@@ -435,10 +431,10 @@
     <rule>
       <if>
         <and>
-          <fact name="divingDepth">20-30</fact>
+          <fact name="plan.divingDepth">20-30</fact>
           <or>
-            <fact name="bottomTimePlan">20-45</fact>
-            <fact name="bottomTimePlan">45+</fact>
+            <fact name="plan.bottomTimePlan">20-45</fact>
+            <fact name="plan.bottomTimePlan">45+</fact>
           </or>
         </and>
       </if>
@@ -450,11 +446,11 @@
     <rule>
       <if>
         <and>
-          <fact name="divingDepth">30-40</fact>
+          <fact name="plan.divingDepth">30-40</fact>
           <or>
-            <fact name="bottomTimePlan">10-20</fact>
-            <fact name="bottomTimePlan">20-45</fact>
-            <fact name="bottomTimePlan">45+</fact>
+            <fact name="plan.bottomTimePlan">10-20</fact>
+            <fact name="plan.bottomTimePlan">20-45</fact>
+            <fact name="plan.bottomTimePlan">45+</fact>
           </or>
         </and>
       </if>
@@ -465,7 +461,7 @@
     </rule>
     <rule>
       <if>
-        <fact name="airConsumptionCalculated">no</fact>
+        <fact name="plan.airConsumptionCalculated">no</fact>
       </if>
       <then>
         <fact name="canDive">no</fact>
@@ -474,7 +470,7 @@
     </rule>
     <rule>
       <if>
-        <fact name="haveBuddy">no</fact>
+        <fact name="plan.haveBuddy">no</fact>
       </if>
       <then>
         <fact name="canDive">no</fact>
@@ -483,7 +479,7 @@
     </rule>
     <rule>
       <if>
-        <fact name="navigationPlan">no</fact>
+        <fact name="plan.navigationPlan">no</fact>
       </if>
       <then>
         <fact name="canDive">no</fact>
@@ -495,21 +491,21 @@
   <questions>
     <!-- Diver -->
     <!-- Health -->
-    <question name="fever">
+    <question name="diver.fever">
       <description>Do you currently have a fever?</description>
       <answers>
         <answer value="yes">Yes</answer>
         <answer value="no">No</answer>
       </answers>
     </question>
-    <question name="sinusProblems">
+    <question name="diver.sinusProblems">
       <description>Are you experiencing sinus problems?</description>
       <answers>
         <answer value="yes">Yes</answer>
         <answer value="no">No</answer>
       </answers>
     </question>
-    <question name="earPain">
+    <question name="diver.earPain">
       <description>Are you currently experiencing pain in your ear?</description>
       <answers>
         <answer value="yes">Yes</answer>
@@ -517,7 +513,7 @@
       </answers>
     </question>
     <!-- Blood pressure -->
-     <question name="bloodPressure">
+     <question name="diver.bloodPressure">
       <description>What is your current blood pressure?</description>
       <answers>
         <answer value="low">Lower than 125/75</answer>
@@ -526,21 +522,21 @@
       </answers>
     </question>
     <!-- Energy -->
-    <question name="tired">
+    <question name="diver.tired">
       <description>Are you feeling tired?</description>
       <answers>
         <answer value="yes">Yes</answer>
         <answer value="no">No</answer>
       </answers>
     </question>
-    <question name="hydrated">
+    <question name="diver.hydrated">
       <description>Have you had enough to drink?</description>
       <answers>
         <answer value="yes">Yes</answer>
         <answer value="no">No</answer>
       </answers>
     </question>
-    <question name="satiety">
+    <question name="diver.satiety">
       <description>How much have you eaten?</description>
       <answers>
         <answer value="hungry">I'm hungry</answer>
@@ -548,7 +544,7 @@
         <answer value="overfull">I feel stuffed, ate too much</answer>
       </answers>
     </question>
-    <question name="hungover">
+    <question name="diver.hungover">
       <description>Are you currently hungover?</description>
       <answers>
         <answer value="yes">Yes</answer>
@@ -556,7 +552,7 @@
       </answers>
     </question>
     <!-- Influence -->
-    <question name="underInfluence">
+    <question name="diver.underInfluence">
       <description>Are you currently under the unfluence of drugs or alcohol?</description>
       <answers>
         <answer value="yes">Yes</answer>
@@ -566,14 +562,14 @@
 
     <!-- Gear -->
     <!-- Mask -->
-    <question name="maskFits">
+    <question name="gear.maskFits">
       <description>Does your mask fit properly and is it fully sealed?</description>
       <answers>
         <answer value="yes">Yes</answer>
         <answer value="no">No</answer>
       </answers>
     </question>
-    <question name="canHoldNose">
+    <question name="gear.canHoldNose">
       <description>Are you able to hold your nose to regulate pressure?</description>
       <answers>
         <answer value="yes">Yes</answer>
@@ -581,7 +577,7 @@
       </answers>
     </question>
     <!-- Fins and boots size -->
-    <question name="finBootSizeCorrect">
+    <question name="gear.finBootSizeCorrect">
       <description>Do your fins and boots fit you correctly?</description>
       <answers>
         <answer value="yes">Yes</answer>
@@ -589,28 +585,28 @@
       </answers>
     </question>
     <!-- Suit -->
-    <question name="suitType">
+    <question name="gear.suitType">
       <description>What kind of suit are you wearing?</description>
       <answers>
         <answer value="dry">Drysuit</answer>
         <answer value="wet">Wetsuit</answer>
       </answers>
     </question>
-    <question name="isDrysuitZipped">
+    <question name="gear.isDrysuitZipped">
       <description>Is your drysuit fully zipped up?</description>
       <answers>
         <answer value="yes">Yes</answer>
         <answer value="no">No</answer>
       </answers>
     </question>
-    <question name="drysuitHasHoles">
+    <question name="gear.drysuitHasHoles">
       <description>Are there any holes in your drysuit?</description>
       <answers>
         <answer value="yes">Yes</answer>
         <answer value="no">No</answer>
       </answers>
     </question>
-    <question name="wetsuitFits">
+    <question name="gear.wetsuitFits">
       <description>Does your wetsuit fit you correctly?</description>
       <answers>
         <answer value="yes">Yes</answer>
@@ -618,7 +614,7 @@
       </answers>
     </question>
     <!-- Buoyancy control device -->
-    <question name="bcdWorksCorrectly">
+    <question name="gear.bcdWorksCorrectly">
       <description>Does your BCD (buoyancy control device) inflate and deflate correctly?</description>
       <answers>
         <answer value="bothBroken">Inflating and deflating don't work correctly</answer>
@@ -628,14 +624,14 @@
       </answers>
     </question>
     <!-- Regulator -->
-    <question name="primaryRegulatorWorks">
+    <question name="gear.primaryRegulatorWorks">
       <description>Does your primary regulator work?</description>
       <answers>
         <answer value="yes">Yes</answer>
         <answer value="no">No</answer>
       </answers>
     </question>
-    <question name="octopusWorks">
+    <question name="gear.octopusWorks">
       <description>Does your octopus work?</description>
       <answers>
         <answer value="yes">Yes</answer>
@@ -643,14 +639,14 @@
       </answers>
     </question>
     <!-- Tank -->
-    <question name="tankPressure">
+    <question name="gear.tankPressure">
       <description>What is the current pressure of your air tank?</description>
       <answers>
         <answer value="enough">200 bars or more</answer>
         <answer value="less">less than 200 bars</answer>
       </answers>
     </question>
-    <question name="divingDepth">
+    <question name="plan.divingDepth">
       <description>How deep do you intend to dive?</description>
       <answers>
         <answer value="upTo20">Up to 20 metres</answer>
@@ -659,7 +655,7 @@
         <answer value="deeperThan40">Deeper than 40 metres</answer>
       </answers>
     </question>
-    <question name="tankContent">
+    <question name="gear.tankContent">
       <description>What do you have in your air tank?</description>
       <answers>
         <answer value="air">Air</answer>
@@ -667,14 +663,14 @@
       </answers>
     </question>
     <!-- Weights -->
-    <question name="bodyWeight">
+    <question name="diver.bodyWeight">
       <description>What is your body weight?</description>
       <answers>
         <answer value="under80">Under 80 kilograms</answer>
         <answer value="atLeast80">80 kilograms or more</answer>
       </answers>
     </question>
-    <question name="weights">
+    <question name="gear.weights">
       <description>How many weights have you taken?</description>
       <answers>
         <answer value="8">8 kilograms in weights</answer>
@@ -682,7 +678,7 @@
       </answers>
     </question>
     <!-- Dive computer -->
-    <question name="maxDivingTime">
+    <question name="plan.maxDivingTime">
       <description>How long will you dive for at most?</description>
       <answers>
         <answer value="20">At most 20 minutes</answer>
@@ -691,7 +687,7 @@
         <answer value="60">At most 1 hour</answer>
       </answers>
     </question>
-    <question name="computerChargeLevel">
+    <question name="gear.computerChargeLevel">
       <description>What is the charge level of your dive computer?</description>
       <answers>
         <answer value="50">At least 50%</answer>
@@ -701,7 +697,7 @@
       </answers>
     </question>
     <!-- SPG pressure gauge -->
-    <question name="spgPressureGaugeWorking">
+    <question name="gear.spgPressureGaugeWorking">
       <description>Is your SPG pressurue gauge working (showing 200 bars)?</description>
       <answers>
         <answer value="yes">Yes</answer>
@@ -709,7 +705,7 @@
       </answers>
     </question>
     <!-- Surface marker buoy -->
-    <question name="surfaceMarkerBuoyAvailable">
+    <question name="gear.surfaceMarkerBuoyAvailable">
       <description>Is a surface marker buoy available?</description>
       <answers>
         <answer value="yes">Yes</answer>
@@ -718,14 +714,14 @@
     </question>
     <!-- Environment -->
     <!-- Weather conditions -->
-    <question name = "wind">
+    <question name = "env.wind">
       <description>Is the wind strong?</description>
       <answers>
         <answer value="yes">Yes</answer>
         <answer value="no">No</answer>
       </answers>
     </question>
-    <question name = "storm">
+    <question name = "env.storm">
       <description>When was the last storm?</description>
       <answers>
         <answer value="3+">Over three days ago</answer>
@@ -733,7 +729,7 @@
       </answers>
     </question>
     <!-- Wave height -->
-    <question name="wave">
+    <question name="env.wave">
       <description>What is the height of the waves?</description>
       <answers>
         <answer value="0-0.5">Up to 0.5 metres</answer>
@@ -742,7 +738,7 @@
         <answer value="1.5+">Over 1.5 metres</answer>
       </answers>
     </question>
-    <question name="expertise">
+    <question name="diver.expertise">
       <description>What is your level of expertise in diving?</description>
       <answers>
         <answer value="beginner">Beginner</answer>
@@ -751,7 +747,7 @@
       </answers>
     </question>
     <!-- Water visibility -->
-    <question name="visibility">
+    <question name="env.visibility">
       <description>What is the water visibility?</description>
       <answers>
         <answer value="poor">Poor (less than 10 metres)</answer>
@@ -759,7 +755,7 @@
       </answers>
     </question>
     <!-- Dive plan -->
-    <question name="bottomTimePlan">
+    <question name="plan.bottomTimePlan">
       <description>How long do you plan to stay at the maximum depth?</description>
       <answers>
         <answer value="10">10 minutes or less</answer>
@@ -769,7 +765,7 @@
       </answers>
     </question>
     <!-- Air consumption -->
-    <question name="airConsumptionCalculated">
+    <question name="plan.airConsumptionCalculated">
       <description>Have you calculated your air consumption for this dive?</description>
       <answers>
         <answer value="yes">Yes</answer>
@@ -777,7 +773,7 @@
       </answers>
     </question>
     <!-- Buddy -->
-    <question name="haveBuddy">
+    <question name="plan.haveBuddy">
       <description>Do you have a dive buddy with you?</description>
       <answers>
         <answer value="yes">Yes</answer>
@@ -785,7 +781,7 @@
       </answers>
     </question>
     <!-- Navigation plan -->
-    <question name="navigationPlan">
+    <question name="plan.navigationPlan">
       <description>Do you have a navigation plan for your dive?</description>
       <answers>
         <answer value="yes">Yes</answer>

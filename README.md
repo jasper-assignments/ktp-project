@@ -1,4 +1,4 @@
-# KTP Project Group 3
+p# KTP Project Group 3
 Our project for the knowledge technology practical course is a knowledge systems which informs recreational divers wether they can safely enter the water. It does this by asking the user questions and determines wether they can based on their answers following provided rules. To draw a conclusion the system makes use of a backward chaining based inference engine that uses the questions and rules provided in the knowledge base (kb.xml).
 
 ## Installation
