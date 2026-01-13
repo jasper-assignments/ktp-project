@@ -29,26 +29,49 @@ def index():
 
 @app.post("/start")
 def start():
+    # Initialise empty domain object
     domain = {}
+
+    # Execute a step
     result = step(rules, domain, questions, goal)
+
+    # Store current domain in session as domain and previous domain
     session["domain"] = json.dumps(domain)
     session["prevDomain"] = json.dumps(domain)
+
     return result
 
 @app.post("/answer")
 def answer():
-    session["prevDomain"] = json.dumps(session["domain"])
-    domain = session["domain"]
+    # Save current domain for undo
+    session["prevDomain"] = session["domain"]
+
+    # Load current domain
+    domain = json.loads(session["domain"])
+    # Set answer from request
     domain[request.json["question"]] = request.json["answer"]
+    # Execute a step
     result = step(rules, domain, questions, goal)
+
+    # Store current domain in session
     session["domain"] = json.dumps(domain)
+
     return result
 
 @app.post("/undo")
 def undo():
-    session["domain"] = json.dumps(session["prevDomain"])
-    domain = session["domain"]
-    return step(rules, domain, questions, goal)
+    # Restore previous domain
+    session["domain"] = session["prevDomain"]
+
+    # Load current domain
+    domain = json.loads(session["domain"])
+    # Execute a step
+    result = step(rules, domain, questions, goal)
+
+    # Store current domain in session
+    session["domain"] = json.dumps(domain)
+
+    return result
 
 if __name__ == "__main__":
     app.run()
