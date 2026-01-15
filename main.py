@@ -1,25 +1,29 @@
 from flask import Flask, send_file, session, request
 from kbparser import parse_kb
-from logic import Fact, Question,Rule
+from logic import Fact, Rule, Subclass
 from backward import backward
-import json
+from domain import Domain
 
 app = Flask(__name__)
 app.config["SECRET_KEY"] = "bottomoftheocean"
 
-rules, questions = parse_kb()
+rules, subclasses = parse_kb()
 goal = Fact("canDive", "no")
 
-def step(rules: list[Rule], domain: dict, questions: dict[str, Question], goal: Fact):
-    engine = backward(rules, domain, questions, goal)
+def step(rules: list[Rule], domain: Domain, subclasses: dict[str, Subclass], goal: Fact):
+    engine = backward(rules, domain, subclasses, goal)
     try:
-        question: Question = next(engine)
-        return {"question": question}
+        return next(engine)
     except StopIteration as result:
+        if not result.value:
+            # We have a conclusion now so if we haven't completed our last subclass yet we will do so now.
+            currentSubclass = domain.getCurrentSubclass()
+            if currentSubclass is not None and domain.completeSubclass(currentSubclass):
+                return {"message": {"description": subclasses[currentSubclass].completeMessage}}
         return {
             "result": result.value,
             "description": result.value
-                and "The diver cannot go into the water safely. Reason: " + domain.get("reason")
+                and "The diver cannot go into the water safely. Reason: " + domain.getFact("reason")
                 or "The diver can go into the water safely.",
         }
 
@@ -30,14 +34,14 @@ def index():
 @app.post("/start")
 def start():
     # Initialise empty domain object
-    domain = {}
+    domain = Domain()
 
     # Execute a step
-    result = step(rules, domain, questions, goal)
+    result = step(rules, domain, subclasses, goal)
 
     # Store current domain in session as domain and previous domain
-    session["domain"] = json.dumps(domain)
-    session["prevDomain"] = json.dumps(domain)
+    session["domain"] = domain.toJson()
+    session["prevDomain"] = domain.toJson()
 
     return result
 
@@ -47,15 +51,26 @@ def answer():
     session["prevDomain"] = session["domain"]
 
     # Load current domain
-    domain = json.loads(session["domain"])
+    domain = Domain.fromJson(session["domain"])
     # Set answer from request
-    domain[request.json["question"]] = request.json["answer"]
+    domain.setFact(request.json["question"], request.json["answer"])
     # Execute a step
-    result = step(rules, domain, questions, goal)
+    result = step(rules, domain, subclasses, goal)
 
     # Store current domain in session
-    session["domain"] = json.dumps(domain)
+    session["domain"] = domain.toJson()
 
+    return result
+
+@app.post("/messageReceived")
+def messageReceived():
+    # Load current domain
+    domain = Domain.fromJson(session["domain"])
+    # Execute a step
+    result = step(rules, domain, subclasses, goal)
+    # Store current domain in session
+    session["domain"] = domain.toJson()
+    
     return result
 
 @app.post("/undo")
@@ -64,12 +79,12 @@ def undo():
     session["domain"] = session["prevDomain"]
 
     # Load current domain
-    domain = json.loads(session["domain"])
+    domain = Domain.fromJson(session["domain"])
     # Execute a step
-    result = step(rules, domain, questions, goal)
+    result = step(rules, domain, subclasses, goal)
 
     # Store current domain in session
-    session["domain"] = json.dumps(domain)
+    session["domain"] = domain.toJson()
 
     return result
 

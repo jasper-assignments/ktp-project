@@ -1,6 +1,6 @@
 import xml.etree.ElementTree as ET
 from xml.etree.ElementTree import Element
-from logic import Conjunction, Disjunction, Fact, Rule, Answer, Question, Negation
+from logic import Conjunction, Disjunction, Fact, Rule, Answer, Question, Negation, Subclass
 
 def parse_antecedent(antecedent: Element) -> Disjunction | Conjunction | Fact:
   match antecedent.tag:
@@ -40,14 +40,25 @@ def parse_question(question: Element) -> Question:
   ))
   return Question(name=question.attrib["name"], description=question.find("description").text, answers=answers)
 
+def parse_subclass(subclass: Element) -> Question:
+  questions = {
+    q.name: q for q in (parse_question(question) for question in subclass)
+  }
+  return Subclass(
+    name=subclass.attrib["name"],
+    startMessage=subclass.attrib["startMessage"],
+    completeMessage=subclass.attrib["completeMessage"],
+    questions=questions
+  )
+
 def parse_kb() -> tuple[list[Rule], dict[str, Question]]:
   tree = ET.parse("kb.xml")
   root = tree.getroot()
   # goal = Fact(name=root.find("goal").attrib["name"], value=root.find("goal").find("value").text)
   rules = [parse_rule(rule) for rule in root.find("rules")]
   
-  questions = {
-    q.name: q for q in (parse_question(question) for question in root.find("questions"))
+  subclasses = {
+    sc.name: sc for sc in (parse_subclass(subclass) for subclass in root.find("questions"))
   }
   
-  return rules, questions
+  return rules, subclasses

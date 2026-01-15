@@ -32,3 +32,10 @@ class Question:
   name: str
   description: str
   answers: list[Answer]
+
+@dataclass
+class Subclass:
+  name: str
+  startMessage: str
+  completeMessage: str
+  questions: list[Question]

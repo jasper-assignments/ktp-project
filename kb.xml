@@ -490,303 +490,315 @@
 
   <questions>
     <!-- Diver -->
-    <!-- Health -->
-    <question name="diver.fever">
-      <description>Do you currently have a fever?</description>
-      <answers>
-        <answer value="yes">Yes</answer>
-        <answer value="no">No</answer>
-      </answers>
-    </question>
-    <question name="diver.sinusProblems">
-      <description>Are you experiencing sinus problems?</description>
-      <answers>
-        <answer value="yes">Yes</answer>
-        <answer value="no">No</answer>
-      </answers>
-    </question>
-    <question name="diver.earPain">
-      <description>Are you currently experiencing pain in your ear?</description>
-      <answers>
-        <answer value="yes">Yes</answer>
-        <answer value="no">No</answer>
-      </answers>
-    </question>
-    <!-- Blood pressure -->
-     <question name="diver.bloodPressure">
-      <description>What is your current blood pressure?</description>
-      <answers>
-        <answer value="low">Lower than 125/75</answer>
-        <answer value="normal">125/75</answer>
-        <answer value="high">Higher than 125/75</answer>
-      </answers>
-    </question>
-    <!-- Energy -->
-    <question name="diver.tired">
-      <description>Are you feeling tired?</description>
-      <answers>
-        <answer value="yes">Yes</answer>
-        <answer value="no">No</answer>
-      </answers>
-    </question>
-    <question name="diver.hydrated">
-      <description>Have you had enough to drink?</description>
-      <answers>
-        <answer value="yes">Yes</answer>
-        <answer value="no">No</answer>
-      </answers>
-    </question>
-    <question name="diver.satiety">
-      <description>How much have you eaten?</description>
-      <answers>
-        <answer value="hungry">I'm hungry</answer>
-        <answer value="satisfied">I'm satisfied</answer>
-        <answer value="overfull">I feel stuffed, ate too much</answer>
-      </answers>
-    </question>
-    <question name="diver.hungover">
-      <description>Are you currently hungover?</description>
-      <answers>
-        <answer value="yes">Yes</answer>
-        <answer value="no">No</answer>
-      </answers>
-    </question>
-    <!-- Influence -->
-    <question name="diver.underInfluence">
-      <description>Are you currently under the unfluence of drugs or alcohol?</description>
-      <answers>
-        <answer value="yes">Yes</answer>
-        <answer value="no">No</answer>
-      </answers>
-    </question>
-
+    <subclass name="diver" startMessage="First, some questions about your health."
+      completeMessage="Great, you are completely healthy!">
+      <!-- Health -->
+      <question name="diver.fever">
+        <description>Do you currently have a fever?</description>
+        <answers>
+          <answer value="yes">Yes</answer>
+          <answer value="no">No</answer>
+        </answers>
+      </question>
+      <question name="diver.sinusProblems">
+        <description>Are you experiencing sinus problems?</description>
+        <answers>
+          <answer value="yes">Yes</answer>
+          <answer value="no">No</answer>
+        </answers>
+      </question>
+      <question name="diver.earPain">
+        <description>Are you currently experiencing pain in your ear?</description>
+        <answers>
+          <answer value="yes">Yes</answer>
+          <answer value="no">No</answer>
+        </answers>
+      </question>
+      <!-- Blood pressure -->
+      <question name="diver.bloodPressure">
+        <description>What is your current blood pressure?</description>
+        <answers>
+          <answer value="low">Lower than 125/75</answer>
+          <answer value="normal">125/75</answer>
+          <answer value="high">Higher than 125/75</answer>
+        </answers>
+      </question>
+      <!-- Energy -->
+      <question name="diver.tired">
+        <description>Are you feeling tired?</description>
+        <answers>
+          <answer value="yes">Yes</answer>
+          <answer value="no">No</answer>
+        </answers>
+      </question>
+      <question name="diver.hydrated">
+        <description>Have you had enough to drink?</description>
+        <answers>
+          <answer value="yes">Yes</answer>
+          <answer value="no">No</answer>
+        </answers>
+      </question>
+      <question name="diver.satiety">
+        <description>How much have you eaten?</description>
+        <answers>
+          <answer value="hungry">I'm hungry</answer>
+          <answer value="satisfied">I'm satisfied</answer>
+          <answer value="overfull">I feel stuffed, ate too much</answer>
+        </answers>
+      </question>
+      <question name="diver.hungover">
+        <description>Are you currently hungover?</description>
+        <answers>
+          <answer value="yes">Yes</answer>
+          <answer value="no">No</answer>
+        </answers>
+      </question>
+      <!-- Influence -->
+      <question name="diver.underInfluence">
+        <description>Are you currently under the unfluence of drugs or alcohol?</description>
+        <answers>
+          <answer value="yes">Yes</answer>
+          <answer value="no">No</answer>
+        </answers>
+      </question>
+    </subclass>
     <!-- Gear -->
-    <!-- Mask -->
-    <question name="gear.maskFits">
-      <description>Does your mask fit properly and is it fully sealed?</description>
-      <answers>
-        <answer value="yes">Yes</answer>
-        <answer value="no">No</answer>
-      </answers>
-    </question>
-    <question name="gear.canHoldNose">
-      <description>Are you able to hold your nose to regulate pressure?</description>
-      <answers>
-        <answer value="yes">Yes</answer>
-        <answer value="no">No</answer>
-      </answers>
-    </question>
-    <!-- Fins and boots size -->
-    <question name="gear.finBootSizeCorrect">
-      <description>Do your fins and boots fit you correctly?</description>
-      <answers>
-        <answer value="yes">Yes</answer>
-        <answer value="no">No</answer>
-      </answers>
-    </question>
-    <!-- Suit -->
-    <question name="gear.suitType">
-      <description>What kind of suit are you wearing?</description>
-      <answers>
-        <answer value="dry">Drysuit</answer>
-        <answer value="wet">Wetsuit</answer>
-      </answers>
-    </question>
-    <question name="gear.isDrysuitZipped">
-      <description>Is your drysuit fully zipped up?</description>
-      <answers>
-        <answer value="yes">Yes</answer>
-        <answer value="no">No</answer>
-      </answers>
-    </question>
-    <question name="gear.drysuitHasHoles">
-      <description>Are there any holes in your drysuit?</description>
-      <answers>
-        <answer value="yes">Yes</answer>
-        <answer value="no">No</answer>
-      </answers>
-    </question>
-    <question name="gear.wetsuitFits">
-      <description>Does your wetsuit fit you correctly?</description>
-      <answers>
-        <answer value="yes">Yes</answer>
-        <answer value="no">No</answer>
-      </answers>
-    </question>
-    <!-- Buoyancy control device -->
-    <question name="gear.bcdWorksCorrectly">
-      <description>Does your BCD (buoyancy control device) inflate and deflate correctly?</description>
-      <answers>
-        <answer value="bothBroken">Inflating and deflating don't work correctly</answer>
-        <answer value="inflatingBroken">Inflating doesn't work correctly</answer>
-        <answer value="deflatingBroken">Deflating doesn't work correctly</answer>
-        <answer value="bothWork">Inflating and deflating both work correctly</answer>
-      </answers>
-    </question>
-    <!-- Regulator -->
-    <question name="gear.primaryRegulatorWorks">
-      <description>Does your primary regulator work?</description>
-      <answers>
-        <answer value="yes">Yes</answer>
-        <answer value="no">No</answer>
-      </answers>
-    </question>
-    <question name="gear.octopusWorks">
-      <description>Does your octopus work?</description>
-      <answers>
-        <answer value="yes">Yes</answer>
-        <answer value="no">No</answer>
-      </answers>
-    </question>
-    <!-- Tank -->
-    <question name="gear.tankPressure">
-      <description>What is the current pressure of your air tank?</description>
-      <answers>
-        <answer value="enough">200 bars or more</answer>
-        <answer value="less">less than 200 bars</answer>
-      </answers>
-    </question>
-    <question name="plan.divingDepth">
-      <description>How deep do you intend to dive?</description>
-      <answers>
-        <answer value="upTo20">Up to 20 metres</answer>
-        <answer value="20-30">20 to 30 metres</answer>
-        <answer value="30-40">30 to 40 metres</answer>
-        <answer value="deeperThan40">Deeper than 40 metres</answer>
-      </answers>
-    </question>
-    <question name="gear.tankContent">
-      <description>What do you have in your air tank?</description>
-      <answers>
-        <answer value="air">Air</answer>
-        <answer value="gasMix">Gas mix</answer>
-      </answers>
-    </question>
-    <!-- Weights -->
-    <question name="diver.bodyWeight">
-      <description>What is your body weight?</description>
-      <answers>
-        <answer value="under80">Under 80 kilograms</answer>
-        <answer value="atLeast80">80 kilograms or more</answer>
-      </answers>
-    </question>
-    <question name="gear.weights">
-      <description>How many weights have you taken?</description>
-      <answers>
-        <answer value="8">8 kilograms in weights</answer>
-        <answer value="10-12">10-12 kilograms in weights</answer>
-      </answers>
-    </question>
-    <!-- Dive computer -->
-    <question name="plan.maxDivingTime">
-      <description>How long will you dive for at most?</description>
-      <answers>
-        <answer value="20">At most 20 minutes</answer>
-        <answer value="30">At most 30 minutes</answer>
-        <answer value="45">At most 45 minutes</answer>
-        <answer value="60">At most 1 hour</answer>
-      </answers>
-    </question>
-    <question name="gear.computerChargeLevel">
-      <description>What is the charge level of your dive computer?</description>
-      <answers>
-        <answer value="50">At least 50%</answer>
-        <answer value="70">At least 70%</answer>
-        <answer value="85">At least 85%</answer>
-        <answer value="100">At least 100%</answer>
-      </answers>
-    </question>
-    <!-- SPG pressure gauge -->
-    <question name="gear.spgPressureGaugeWorking">
-      <description>Is your SPG pressurue gauge working (showing 200 bars)?</description>
-      <answers>
-        <answer value="yes">Yes</answer>
-        <answer value="no">No</answer>
-      </answers>
-    </question>
-    <!-- Surface marker buoy -->
-    <question name="gear.surfaceMarkerBuoyAvailable">
-      <description>Is a surface marker buoy available?</description>
-      <answers>
-        <answer value="yes">Yes</answer>
-        <answer value="no">No</answer>
-      </answers>
-    </question>
+    <subclass name="gear" startMessage="Time to check your gear."
+      completeMessage="Your gear seems in order!">
+      <!-- Mask -->
+      <question name="gear.maskFits">
+        <description>Does your mask fit properly and is it fully sealed?</description>
+        <answers>
+          <answer value="yes">Yes</answer>
+          <answer value="no">No</answer>
+        </answers>
+      </question>
+      <question name="gear.canHoldNose">
+        <description>Are you able to hold your nose to regulate pressure?</description>
+        <answers>
+          <answer value="yes">Yes</answer>
+          <answer value="no">No</answer>
+        </answers>
+      </question>
+      <!-- Fins and boots size -->
+      <question name="gear.finBootSizeCorrect">
+        <description>Do your fins and boots fit you correctly?</description>
+        <answers>
+          <answer value="yes">Yes</answer>
+          <answer value="no">No</answer>
+        </answers>
+      </question>
+      <!-- Suit -->
+      <question name="gear.suitType">
+        <description>What kind of suit are you wearing?</description>
+        <answers>
+          <answer value="dry">Drysuit</answer>
+          <answer value="wet">Wetsuit</answer>
+        </answers>
+      </question>
+      <question name="gear.isDrysuitZipped">
+        <description>Is your drysuit fully zipped up?</description>
+        <answers>
+          <answer value="yes">Yes</answer>
+          <answer value="no">No</answer>
+        </answers>
+      </question>
+      <question name="gear.drysuitHasHoles">
+        <description>Are there any holes in your drysuit?</description>
+        <answers>
+          <answer value="yes">Yes</answer>
+          <answer value="no">No</answer>
+        </answers>
+      </question>
+      <question name="gear.wetsuitFits">
+        <description>Does your wetsuit fit you correctly?</description>
+        <answers>
+          <answer value="yes">Yes</answer>
+          <answer value="no">No</answer>
+        </answers>
+      </question>
+      <!-- Buoyancy control device -->
+      <question name="gear.bcdWorksCorrectly">
+        <description>Does your BCD (buoyancy control device) inflate and deflate correctly?</description>
+        <answers>
+          <answer value="bothBroken">Inflating and deflating don't work correctly</answer>
+          <answer value="inflatingBroken">Inflating doesn't work correctly</answer>
+          <answer value="deflatingBroken">Deflating doesn't work correctly</answer>
+          <answer value="bothWork">Inflating and deflating both work correctly</answer>
+        </answers>
+      </question>
+      <!-- Regulator -->
+      <question name="gear.primaryRegulatorWorks">
+        <description>Does your primary regulator work?</description>
+        <answers>
+          <answer value="yes">Yes</answer>
+          <answer value="no">No</answer>
+        </answers>
+      </question>
+      <question name="gear.octopusWorks">
+        <description>Does your octopus work?</description>
+        <answers>
+          <answer value="yes">Yes</answer>
+          <answer value="no">No</answer>
+        </answers>
+      </question>
+      <!-- Tank -->
+      <question name="gear.tankPressure">
+        <description>What is the current pressure of your air tank?</description>
+        <answers>
+          <answer value="enough">200 bars or more</answer>
+          <answer value="less">less than 200 bars</answer>
+        </answers>
+      </question>
+      <question name="plan.divingDepth">
+        <description>How deep do you intend to dive?</description>
+        <answers>
+          <answer value="upTo20">Up to 20 metres</answer>
+          <answer value="20-30">20 to 30 metres</answer>
+          <answer value="30-40">30 to 40 metres</answer>
+          <answer value="deeperThan40">Deeper than 40 metres</answer>
+        </answers>
+      </question>
+      <question name="gear.tankContent">
+        <description>What do you have in your air tank?</description>
+        <answers>
+          <answer value="air">Air</answer>
+          <answer value="gasMix">Gas mix</answer>
+        </answers>
+      </question>
+      <!-- Weights -->
+      <question name="diver.bodyWeight">
+        <description>What is your body weight?</description>
+        <answers>
+          <answer value="under80">Under 80 kilograms</answer>
+          <answer value="atLeast80">80 kilograms or more</answer>
+        </answers>
+      </question>
+      <question name="gear.weights">
+        <description>How many weights have you taken?</description>
+        <answers>
+          <answer value="8">8 kilograms in weights</answer>
+          <answer value="10-12">10-12 kilograms in weights</answer>
+        </answers>
+      </question>
+      <!-- Dive computer -->
+      <question name="plan.maxDivingTime">
+        <description>How long will you dive for at most?</description>
+        <answers>
+          <answer value="20">At most 20 minutes</answer>
+          <answer value="30">At most 30 minutes</answer>
+          <answer value="45">At most 45 minutes</answer>
+          <answer value="60">At most 1 hour</answer>
+        </answers>
+      </question>
+      <question name="gear.computerChargeLevel">
+        <description>What is the charge level of your dive computer?</description>
+        <answers>
+          <answer value="50">At least 50%</answer>
+          <answer value="70">At least 70%</answer>
+          <answer value="85">At least 85%</answer>
+          <answer value="100">At least 100%</answer>
+        </answers>
+      </question>
+      <!-- SPG pressure gauge -->
+      <question name="gear.spgPressureGaugeWorking">
+        <description>Is your SPG pressurue gauge working (showing 200 bars)?</description>
+        <answers>
+          <answer value="yes">Yes</answer>
+          <answer value="no">No</answer>
+        </answers>
+      </question>
+      <!-- Surface marker buoy -->
+      <question name="gear.surfaceMarkerBuoyAvailable">
+        <description>Is a surface marker buoy available?</description>
+        <answers>
+          <answer value="yes">Yes</answer>
+          <answer value="no">No</answer>
+        </answers>
+      </question>
+    </subclass>
     <!-- Environment -->
-    <!-- Weather conditions -->
-    <question name = "env.wind">
-      <description>Is the wind strong?</description>
-      <answers>
-        <answer value="yes">Yes</answer>
-        <answer value="no">No</answer>
-      </answers>
-    </question>
-    <question name = "env.storm">
-      <description>When was the last storm?</description>
-      <answers>
-        <answer value="3+">Over three days ago</answer>
-        <answer value="3-">Less than three days ago</answer>
-      </answers>
-    </question>
-    <!-- Wave height -->
-    <question name="env.wave">
-      <description>What is the height of the waves?</description>
-      <answers>
-        <answer value="0-0.5">Up to 0.5 metres</answer>
-        <answer value="0.5-1.0">0.5 to 1 metre</answer>
-        <answer value="1.0-1.5">1 to 1.5 metres</answer>
-        <answer value="1.5+">Over 1.5 metres</answer>
-      </answers>
-    </question>
-    <question name="diver.expertise">
-      <description>What is your level of expertise in diving?</description>
-      <answers>
-        <answer value="beginner">Beginner</answer>
-        <answer value="intermediate">Intermediate</answer>
-        <answer value="expert">Expert</answer>
-      </answers>
-    </question>
-    <!-- Water visibility -->
-    <question name="env.visibility">
-      <description>What is the water visibility?</description>
-      <answers>
-        <answer value="poor">Poor (less than 10 metres)</answer>
-        <answer value="good">Good (over 10 metres)</answer>
-      </answers>
-    </question>
+    <subclass name="environment" startMessage="Let me ask you some questions about the environment."
+      completeMessage="The environment is suitable for diving!">
+      <!-- Weather conditions -->
+      <question name="env.wind">
+        <description>Is the wind strong?</description>
+        <answers>
+          <answer value="yes">Yes</answer>
+          <answer value="no">No</answer>
+        </answers>
+      </question>
+      <question name="env.storm">
+        <description>When was the last storm?</description>
+        <answers>
+          <answer value="3+">Over three days ago</answer>
+          <answer value="3-">Less than three days ago</answer>
+        </answers>
+      </question>
+      <!-- Wave height -->
+      <question name="env.wave">
+        <description>What is the height of the waves?</description>
+        <answers>
+          <answer value="0-0.5">Up to 0.5 metres</answer>
+          <answer value="0.5-1.0">0.5 to 1 metre</answer>
+          <answer value="1.0-1.5">1 to 1.5 metres</answer>
+          <answer value="1.5+">Over 1.5 metres</answer>
+        </answers>
+      </question>
+      <question name="diver.expertise">
+        <description>What is your level of expertise in diving?</description>
+        <answers>
+          <answer value="beginner">Beginner</answer>
+          <answer value="intermediate">Intermediate</answer>
+          <answer value="expert">Expert</answer>
+        </answers>
+      </question>
+      <!-- Water visibility -->
+      <question name="env.visibility">
+        <description>What is the water visibility?</description>
+        <answers>
+          <answer value="poor">Poor (less than 10 metres)</answer>
+          <answer value="good">Good (over 10 metres)</answer>
+        </answers>
+      </question>
+    </subclass>
     <!-- Dive plan -->
-    <question name="plan.bottomTimePlan">
-      <description>How long do you plan to stay at the maximum depth?</description>
-      <answers>
-        <answer value="10">10 minutes or less</answer>
-        <answer value="10-20">From 10 to 20 minutes</answer>
-        <answer value="20-45">From 20 to 45 minutes</answer>
-        <answer value="45+">More than 45 minutes</answer>
-      </answers>
-    </question>
-    <!-- Air consumption -->
-    <question name="plan.airConsumptionCalculated">
-      <description>Have you calculated your air consumption for this dive?</description>
-      <answers>
-        <answer value="yes">Yes</answer>
-        <answer value="no">No</answer>
-      </answers>
-    </question>
-    <!-- Buddy -->
-    <question name="plan.haveBuddy">
-      <description>Do you have a dive buddy with you?</description>
-      <answers>
-        <answer value="yes">Yes</answer>
-        <answer value="no">No</answer>
-      </answers>
-    </question>
-    <!-- Navigation plan -->
-    <question name="plan.navigationPlan">
-      <description>Do you have a navigation plan for your dive?</description>
-      <answers>
-        <answer value="yes">Yes</answer>
-        <answer value="no">No</answer>
-      </answers>
-    </question>
+    <subclass name="plan" startMessage="And now we'll look at your diving plan."
+      completeMessage="Your diving plan seems to be in order!">
+      <!-- Bottom time -->
+      <question name="plan.bottomTimePlan">
+        <description>How long do you plan to stay at the maximum depth?</description>
+        <answers>
+          <answer value="10">10 minutes or less</answer>
+          <answer value="10-20">From 10 to 20 minutes</answer>
+          <answer value="20-45">From 20 to 45 minutes</answer>
+          <answer value="45+">More than 45 minutes</answer>
+        </answers>
+      </question>
+      <!-- Air consumption -->
+      <question name="plan.airConsumptionCalculated">
+        <description>Have you calculated your air consumption for this dive?</description>
+        <answers>
+          <answer value="yes">Yes</answer>
+          <answer value="no">No</answer>
+        </answers>
+      </question>
+      <!-- Buddy -->
+      <question name="plan.haveBuddy">
+        <description>Do you have a dive buddy with you?</description>
+        <answers>
+          <answer value="yes">Yes</answer>
+          <answer value="no">No</answer>
+        </answers>
+      </question>
+      <!-- Navigation plan -->
+      <question name="plan.navigationPlan">
+        <description>Do you have a navigation plan for your dive?</description>
+        <answers>
+          <answer value="yes">Yes</answer>
+          <answer value="no">No</answer>
+        </answers>
+      </question>
+    </subclass>
   </questions>
 </knowledge>

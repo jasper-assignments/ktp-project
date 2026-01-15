@@ -121,7 +121,6 @@
                     loading: false,
                     started: false,
                     finished: false,
-                    lastQuestion: undefined,
 
                     scrollChat() {
                         this.$nextTick(() => {
@@ -138,11 +137,13 @@
                     },
 
                     async handleResponse(response) {
-                        this.loading = false;
-                        if (response.data.question) {
-                            this.messages.push(response.data.question);
-                            this.lastQuestion = response.data.question;
+                        this.loading = "message" in response.data;
+                        if (response.data.question || response.data.message) {
+                            this.messages.push(response.data.question ?? response.data.message);
                             this.scrollChat();
+                            if (response.data.message) {
+                                this.messageReceived();
+                            }
                             return;
                         }
                         this.messages.push({
@@ -158,7 +159,6 @@
                         this.started = true;
                         await sleep(250);
                         this.loading = true;
-                        this.lastQuestion = undefined;
                         this.messages.push({
                             name: "intro",
                             description:
@@ -184,15 +184,21 @@
                         this.handleResponse(response);
                     },
 
+                    async messageReceived() {
+                        this.loading = true;
+                        this.scrollChat();
+                        await sleep(1000);
+                        const response = await axios.post("/messageReceived");
+                        this.handleResponse(response);
+                    },
+
                     async undo() {
                         this.finished = false;
                         await sleep(250);
                         this.loading = true;
                         this.scrollChat();
                         await sleep(1000);
-                        const response = await axios.post("/undo", {
-                            question: this.lastQuestion.name,
-                        });
+                        const response = await axios.post("/undo");
                         this.handleResponse(response);
                     },
 
